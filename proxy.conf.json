@@ -1,0 +1,8 @@
+{
+    "/api": {
+      "target": "https://10.1.22.206:4200/",
+      "secure": false,
+      "changeOrigin": true
+    }
+  }
+  

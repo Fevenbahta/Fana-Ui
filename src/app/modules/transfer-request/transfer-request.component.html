@@ -1,0 +1,239 @@
+
+<app-nav class="fixed-header sharednav" [buttons]="buttons"></app-nav>
+<div class="">
+  <div class="row ">
+    <div class="col-md-11  ml-5">
+      <div class="mt-5 mb-5">
+        <div class="card">
+          <div class="mt-4">
+            <div class="card-header cardhead">
+              <p class="card-category color " style="color:black">Complete form for request</p>
+            </div>
+            <div class="card-body">
+              <div class="col-md-3 form-field">
+                <h6 class="card-head">Choose Payment Method:</h6>
+                <mat-radio-group [(ngModel)]="selectedMethod" name="selectedMethod" required>
+                  <p>
+                    <mat-label>Select Method</mat-label>
+                  </p>
+                  <mat-radio-button value="Cash" class="radio-option">Cash</mat-radio-button>
+                  <mat-radio-button value="Transfer" class="radio-option">Transfer</mat-radio-button>
+                </mat-radio-group>
+              </div>
+            </div>
+
+            <div class="card-body" *ngIf="selectedMethod === 'Transfer'">
+              <form [formGroup]="transferRequestForm" (ngSubmit)="addRequest()">
+                <div class="row mt-5">
+                  <div class="col-md-5">
+                    <div class="form-field">
+                      <input id="cAccountNo" formControlName="cAccountNo"  placeholder="00310095104"class="disabled-element" type="text" [disabled]="true" />
+                      <label for="cAccountNo">Account Number</label>
+                      <mat-error *ngIf="transferRequestForm.get('cAccountNo').hasError('required') && transferRequestForm.get('cAccountOwner').touched">Account Number is required</mat-error>
+                    </div>
+                  </div>
+                </div>
+                <div class="row mt-5">
+                  <div class="col-md-5">
+                    <div class="form-field wider-input">
+                      <input id="cAccountOwner" formControlName="cAccountOwner" [disabled]="true"  placeholder="FANA YOUTH AND CREDIT LIMITED COOPERATIVE"class="disabled-element" type="text" />
+                      <label for="cAccountOwner">Account Owner Name</label>
+                      <mat-error *ngIf="transferRequestForm.get('cAccountOwner').hasError('required') && transferRequestForm.get('cAccountOwner').touched">Account Owner Name is required</mat-error>
+                    </div>
+                  </div>
+                </div>
+                <div class="row mt-5">
+                  <div class="col-md-5">
+                    <div class="form-field">
+                      <input id="dAccountNo" formControlName="dAccountNo" placeholder=" " type="text" />
+                      <label for="dAccountNo">Debited Account</label>
+                      <mat-error *ngIf="transferRequestForm.get('dAccountNo').hasError('required') && transferRequestForm.get('dAccountNo').touched">Debited Account is required</mat-error>
+                    </div>
+                  </div>
+                </div>
+                <div class="loading-overlay" *ngIf="isSearching; else loadedData ">
+
+                  <p>Loading......</p>
+                </div>
+                <div class="row mt-5">
+                  <div class="col-md-3">
+                    <button class="btn btnsave" type="button" (click)="checkAccount()">Check Account</button>
+                  </div>
+                </div>
+                
+                <mat-error *ngIf="invalid">Invalid Account</mat-error>
+                
+                <ng-template #loadedData></ng-template>
+                <div class="row mt-5" *ngIf="accountChecked">
+                  <div class="col-md-5">
+                    <div class="form-field">
+                      <input id="dDepositeName" formControlName="dDepositeName" placeholder=" "class="disabled-element" type="text" />
+                      <label for="dDepositeName">Debited Account Full Name</label>
+                      <mat-error *ngIf="transferRequestForm.get('dDepositeName').hasError('required') && transferRequestForm.get('dDepositeName').touched">Debited Account Full Name is required</mat-error>
+                    </div>
+                  </div>
+                </div>
+          
+                <div class="row mt-5" *ngIf="accountChecked">
+                  <div class="col-md-5">
+                    <div class="form-field">
+                      <input id="depositorPhone" formControlName="depositorPhone" placeholder=" "class="disabled-element" type="text" />
+                      <label for="depositorPhone">Depositor Phone</label>
+                      <mat-error *ngIf="transferRequestForm.get('depositorPhone').hasError('required') && transferRequestForm.get('depositorPhone').touched">Depositor Phone is required</mat-error>
+                    </div>
+                  </div>
+                </div>
+                <div class="row mt-5" *ngIf="accountChecked">
+                  <div class="col-md-5">
+                    <div class="form-field">
+                      <input id="memberId" formControlName="memberId" placeholder=" " type="text" />
+                      <label for="memberId">Member ID</label>
+                      <mat-error *ngIf="transferRequestForm.get('memberId').hasError('required') && transferRequestForm.get('memberId').touched">Member ID is required</mat-error>
+                    </div>
+                  </div>
+                </div>
+                <div class="row mt-5" *ngIf="accountChecked">
+                  <div class="col-md-3">
+                    <div class="form-field">
+                      <input id="amount" formControlName="amount" placeholder=" " type="text" />
+                      <label for="amount">Amount</label>
+                      <mat-error *ngIf="transferRequestForm.get('amount').hasError('required') && transferRequestForm.get('amount').touched">Amount is required</mat-error>
+                    </div>
+                  </div>
+                </div>  <mat-error *ngIf="inSufficentBalance">InSufficent Balance</mat-error>
+             
+                <div class="row mt-5">
+                  <div class="col-md-12">
+                    <button class="btn btn-sm carhead" type="submit">Submit</button>
+                  </div>
+           
+                  <div>  <button *ngIf="isSuccess" class=" alert alert-success mt-3 col-md-2">
+                    successfull!
+                  </button>
+             </div>
+                </div>
+              </form>
+            </div>
+
+            <div class="card-body" *ngIf="selectedMethod === 'Cash'">
+              <form [formGroup]="cashTransferRequestForm" (ngSubmit)="addRequest()">
+                <div class="row mt-5">
+                  <div class="col-md-5">
+                    <div class="form-field">
+                      <input id="cAccountNo" formControlName="cAccountNo" [disabled]="true"  placeholder="00310095104"class="disabled-element" type="text" />
+                      <label for="cAccountNo">Account Number</label>
+                      <mat-error *ngIf="cashTransferRequestForm.get('cAccountNo').hasError('required') && cashTransferRequestForm.get('cAccountNo').touched">Account Number is required</mat-error>
+                    </div>
+                  </div>
+                </div>
+                <div class="row mt-5">
+                  <div class="col-md-5">
+                    <div class="form-field wider-input">
+                      <input id="cAccountOwner" formControlName="cAccountOwner" [disabled]="true"  placeholder="FANA YOUTH AND CREDIT LIMITED COOPERATIVE"class="disabled-element" type="text" />
+                      <label for="cAccountOwner">Account Owner Name</label>
+                      <mat-error *ngIf="cashTransferRequestForm.get('cAccountOwner').hasError('required') && cashTransferRequestForm.get('cAccountOwner').touched">Account Owner Name is required</mat-error>
+                    </div>
+                  </div>
+                </div>
+                <div class="row mt-5">
+                  <div class="col-md-5">
+                    <div class="form-field">
+                      <input id="dAccountNo" formControlName="dAccountNo" [disabled]="true"   placeholder="00300000037"class="disabled-element" type="text" />
+                      <label for="dAccountNo">Debited Account</label>
+                      <mat-error *ngIf="cashTransferRequestForm.get('dAccountNo').hasError('required') && cashTransferRequestForm.get('dAccountNo').touched">Debited Account is required</mat-error>
+                    </div>
+                  </div>
+                </div>
+           
+
+                <div class="row mt-5" >
+                  <div class="col-md-5">
+                    <div class="form-field wider-input">
+                      <input id="dDepositeName" formControlName="dDepositeName" placeholder=" "class="disabled-element" type="text" />
+                      <label for="dDepositeName">Debited Account Full Name</label>
+                      <mat-error *ngIf="cashTransferRequestForm.get('dDepositeName').hasError('required') && cashTransferRequestForm.get('dDepositeName').touched">Depositor Full Name is required</mat-error>
+                    </div>
+                  </div>
+                </div>
+                <div class="row mt-5">
+                  <div class="col-md-5">
+                    <div class="form-field">
+                      <input id="depositorPhone" formControlName="depositorPhone" placeholder=" " type="text" />
+                      <label for="depositorPhone">Depositor Phone</label>
+                      <mat-error *ngIf="cashTransferRequestForm.get('depositorPhone').hasError('required') && cashTransferRequestForm.get('depositorPhone').touched">Depositor Phone is required</mat-error>
+                    </div>
+                  </div>
+                </div>
+                <div class="row mt-5">
+                  <div class="col-md-5">
+                    <div class="form-field">
+                      <input id="memberId" formControlName="memberId" placeholder=" " type="text" />
+                      <label for="memberId">Member ID</label>
+                      <mat-error *ngIf="cashTransferRequestForm.get('memberId').hasError('required') && cashTransferRequestForm.get('memberId').touched">Member ID is required</mat-error>
+                    </div>
+                  </div>
+                </div>
+                <div class="row mt-5">
+                  <div class="col-md-3">
+                    <div class="form-field">
+                      <input id="amount" formControlName="amount" placeholder=" " type="text" />
+                      <label for="amount">Amount</label>
+                      <mat-error *ngIf="cashTransferRequestForm.get('amount').hasError('required') && cashTransferRequestForm.get('amount').touched "> Amount is required</mat-error>
+                    </div>
+                  </div>
+                </div>
+                
+                <div class="row mt-5">
+                  <div class="col-md-3">
+                    <button class="btn btn-sm carhead" type="submit">Submit</button>
+                  </div>
+                  <div>  <button *ngIf="isSuccess" class=" alert alert-success mt-3 col-md-2">
+                    successfull!
+                  </button>
+             </div>
+                   </div>
+              </form>
+            </div>
+
+            <div class="col-md-11 mt-5 mb-5">
+              <div class="col-md-12 mt-5 mb-5">
+                <div class="col-md-12 mt-5 mb-5"></div>
+              </div>
+            </div>
+            <div class="col-md-11 mt-5 mb-5">
+              <div class="col-md-12 mt-5 mb-5">
+                <div class="col-md-12 mt-5 mb-5"></div>
+              </div>
+            </div>
+            <div class="col-md-11 mt-5 mb-5">
+              <div class="col-md-12 mt-5 mb-5">
+                <div class="col-md-12 mt-5 mb-5"></div>
+              </div>
+            </div>
+            <div class="col-md-11 mt-5 mb-5">
+              <div class="col-md-12 mt-5 mb-5">
+                <div class="col-md-12 mt-5 mb-5"></div>
+              </div>
+            </div>
+            <div class="col-md-11 mt-5 mb-5">
+              <div class="col-md-12 mt-5 mb-5">
+                <div class="col-md-12 mt-5 mb-5"></div>
+              </div>
+            </div>
+            <div class="col-md-11 mt-5 mb-5">
+              <div class="col-md-12 mt-5 mb-5">
+                <div class="col-md-12 mt-5 mb-5"></div>
+              </div>
+            </div>
+        
+            <div class="col-md-11 mt-5 mb-5">
+              <div class="col-md-12 mt-5 mb-5">
+                <div class="col-md-12 mt-5 mb-5"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

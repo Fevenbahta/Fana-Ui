@@ -1,0 +1,94 @@
+
+.nav-link{
+
+  color:white;
+height: 50px;
+padding: 0px;
+font-family: 'Times New Roman', Times, serif;
+
+}
+.nav-item{
+  font-family: 'Times New Roman', Times, serif;
+  background: linear-gradient(to left, #0595a8, #16c1e4); 
+color:white;
+}
+
+.cardbody{
+  font-family: 'Times New Roman', Times, serif;
+  
+}
+
+.font{
+  font-size: small;
+  font-family: 'Times New Roman', Times, serif;
+}
+
+.user{
+color:#09badd;
+}
+.nav-item:active{
+   color:white;
+   background: linear-gradient(to right, #7fd8e3, #0495b3)
+}
+  .logo-img{
+    width:30%;
+    height: 30%;
+      }
+      .sidebar {
+        border-top-right-radius: 10%;
+        border-bottom-right-radius: 10%;
+        overflow: hidden;
+        width: 200px;
+        box-shadow:rgb(19, 18, 18);
+        font-family: 'Times New Roman', Times, serif;
+      }
+
+  .logo-img{
+    width:30%;
+    height: 30%;
+      }
+      
+
+      
+
+  .logo-img{
+    width:30%;
+    height: 30%;
+      }
+ 
+/* 
+@media (max-width: 576px) {
+  .sidebar-wrapper {
+    width:80;
+  }
+  .logo-img{
+    width:5%;
+    height: 10%;
+      }
+
+}
+
+
+@media (min-width: 577px) and (max-width: 992px) {
+  .sidebar-wrapper {
+    width: 100%;
+  }
+  .logo-img{
+    width:10%;
+    height: 20%;
+      }
+
+}
+
+
+@media (min-width: 993px) {
+  .sidebar-wrapper {
+    width: 120%; 
+  }
+  .logo-img{
+    width:30%;
+    height: 30%;
+      }
+
+
+} */

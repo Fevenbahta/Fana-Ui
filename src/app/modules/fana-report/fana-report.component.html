@@ -1,0 +1,97 @@
+    
+  <div class="">
+
+  </div>
+  <div class="row card">
+  <div class=" container-fluid  ">
+     
+      <div class="row ">
+        <div class=""><app-nav class=" sharednav fixed-header" [buttons]="filterButtonsByRole()"></app-nav>
+  
+      </div></div></div>
+
+      <div class="mt-5 ">
+        <div class="mt-5 ">
+          <div class="row">
+        
+              <div class="card">
+                <div class="col-md-12 mt-2 ">         <!-- Branch Input -->
+               
+                  
+                     <div class="card-header">
+            
+                  <h6 class=" mt-3 text-center">LION INTERNATIONAL BANK S.C</h6>
+                  <h6 class=" mt-3 text-center">TRANSACTION REPORT</h6>
+                  <h6 class=" mt-3">Account Name: Fana Youth Saving And Credit Limited Cooprative</h6>
+                  
+                  <h6 class=" mt-3">Accont Number: 00310095104-87</h6>
+                  
+                  <h6 class=" mt-3">BRANCH: MEKELE MARKET</h6>
+                  <div class=" "></div>
+                </div>
+    
+                <div>
+
+                    <div>
+                        <label for="startDate">Date covered : From</label>
+                        <input type="date" id="startDate" [(ngModel)]="startDate" />
+                      
+                        <label for="endDate">To:</label>
+                        <input type="date" id="endDate" [(ngModel)]="endDate" />
+                      
+                        <button (click)="generateReport()">Generate</button>
+                      </div>
+
+                  <table
+                    class="table  table-responsive table-striped col-md-12 compact-table"
+                    *ngIf="filteredreports.length || reportdata.length"
+                  >
+                  <button class="btn btndelete" (click)="exportToPDF()"> <i class="material-icons icon-red">picture_as_pdf</i> PDF</button>
+                  <button class="btn btndelete" (click)="exportToExcel()"><i class="material-icons icon-green">insert_drive_file</i> Excel</button>
+                              
+                    <div>
+                        <thead>
+                            <tr>
+                              <th>No</th>
+                              <th>Transaction Date</th>
+                              <th>Depositor Full Name</th>
+                              <th>Fana Member Id</th>
+                              <th>Depositor Phone Number</th>
+                              <th>Lib Transaction No</th>
+                              <th>Amount</th>
+                              <th>Transaction Type</th>
+                                      </tr>
+                          </thead>
+                          <tbody>
+                            <tr *ngFor="let report of filteredreports; let i = index">
+                              <td>{{ i + 1 }}</td>    
+                              <td>{{ report.transDate }}</td>
+
+                           
+                              <td class="uppercase-text">{{ report.dDepositeName }}</td>
+
+                 
+                              <td>{{ report.memberId }}</td>
+                  
+                              <td>{{ report.depositorPhone }}</td>
+                              <td>{{ report.paymentNo }}</td>
+                              <td>{{ report.amount | number: '1.2-2' }}</td>
+                              <td>{{ report.transType === 'Transfer' ? 'Account to Account ' + report.transType : report.transType }}</td>
+<td><button class="btn btn-sm btnex" (click)="print(report)" [ngStyle]="{'font-size': '10px', 'padding': '4px 6px'}">
+  <i class="material-icons icon-blue">print</i> print
+</button>
+             </td>
+
+
+                            </tr>
+                          </tbody>
+                    </div>
+                  </table>
+                  <p *ngIf="!(filteredreports.length || reportdata.length)">
+                    No transaction found
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>

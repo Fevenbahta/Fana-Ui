@@ -1,0 +1,112 @@
+    
+  <div class="mt-5">
+
+  </div>
+  <div class="row card">
+  <div class=" container-fluid  ">
+     
+      <div class="row mt-5 ">
+        <div class=""><app-nav class=" sharednav fixed-header" [buttons]="buttons"></app-nav>
+  
+      </div></div></div>
+
+      <div class="mt-5 ">
+        <div class="mt-5 ">
+          <div class="row">
+        
+              <div class="card">
+                <div class="col-md-12 mt-2 ">         <!-- Branch Input -->
+                    <div>
+                        <label for="startDate">Start Date:</label>
+                        <input type="date" id="startDate" [(ngModel)]="startDate" />
+                      
+                        <label for="endDate">End Date:</label>
+                        <input type="date" id="endDate" [(ngModel)]="endDate" />
+                      
+                        <button (click)="generateReport()">Generate</button>
+                      </div>
+                  
+                     <div class="card-header">
+                  <div class="pagination mt-3 ml-3">
+                    <input
+                      class="search inputserach"
+                      type="search"
+                      placeholder="Search..."
+                      [(ngModel)]="searchTerm"
+                      (input)="onSearch()"
+                    />
+    
+                    <button
+                      mat-button
+                      (click)="onPreviousPage()"
+                      [disabled]="currentPage === 1"
+                    >
+                      <mat-icon class="custom-icon">keyboard_arrow_left</mat-icon>
+                    </button>
+                    <span>Page {{ currentPage }}</span>
+                    <button
+                      mat-button
+                      (click)="onNextPage()"
+                      [disabled]="currentPage * pageSize >= reportdata.length"
+                    >
+                      <mat-icon class="custom-icon">keyboard_arrow_right</mat-icon>
+                    </button>
+                    <p>{{ pageSize * currentPage }} of {{ reportdata.length }}</p>
+                  </div>
+    
+                  <h6 class="card-title mt-3">It Department Equipment Table</h6>
+                  <div class=" "></div>
+                </div>
+    
+                <div>
+                  <table
+                    class="table  table-responsive table-striped col-md-12 compact-table"
+                    *ngIf="filteredreports.length || reportdata.length"
+                  >
+                  <button class="btn btndelete" (click)="exportToExcel()"> 🗃️ Export</button>
+                                  
+                    <div>
+                        <thead>
+                            <tr>
+                              <th>AccountNo</th>
+                              <th>SerialNo</th>
+                              <th>MemberCode</th>
+                              <th>MemberType</th>
+                              <th>TransactionDate</th>
+                              <th>AccountHolderName</th>
+                              <th>AccountType</th>
+                              <th>Debit</th>
+                              <th>Credit</th>
+                              <th>Balance</th>
+                              <th>BBF</th>
+                              <th>UnAuthorized</th>
+                              <th>SiteCode</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr *ngFor="let report of filteredreports">
+                              <td>{{ report.AccountNo }}</td>
+                              <td>{{ report.SerialNo }}</td>
+                              <td>{{ report.MemberCode }}</td>
+                              <td>{{ report.MemberType }}</td>
+                              <td>{{ report.TransactionDate }}</td>
+                              <td>{{ report.AccountHolderName }}</td>
+                              <td>{{ report.AccountType }}</td>
+                              <td>{{ report.Debit }}</td>
+                              <td>{{ report.Credit }}</td>
+                              <td>{{ report.Balance }}</td>
+                              <td>{{ report.BBF }}</td>
+                              <td>{{ report.UnAuthorized }}</td>
+                              <td>{{ report.SiteCode }}</td>
+                            </tr>
+                          </tbody>
+                    </div>
+                  </table>
+                  <p *ngIf="!(filteredreports.length || reportdata.length)">
+                    No Furniture found
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>

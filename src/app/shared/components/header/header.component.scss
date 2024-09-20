@@ -1,0 +1,54 @@
+
+.fixed-header {
+  position:absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: #ffffff; /* White background */
+  z-index: 100;
+ 
+
+}
+
+  .logo-text {
+    color:#018ca8; /* Set text color to white */
+    text-decoration: none;
+    text-size-adjust:inherit;
+    font-weight: bold; /* Remove underline */
+    font-family: 'Times New Roman', Times, serif;
+
+}
+.menu-icon,
+.logout-icon {
+  font-size: 14px;
+  color: white; 
+/* Set the color to white */
+}
+
+  .slogan{
+    color:#018ca8;
+   text-decoration-line:none;
+   text-decoration: white;
+   align-items: left;
+   text-align: right;
+  }
+  
+  
+  .logo-img{
+    width:20%;
+    height: 20%;
+      }
+      .nav-li{
+color:#018ca8;;
+size: small;
+
+text-decoration-line: none;
+      }
+      .nav-link-text{
+        color:#018ca8;
+        font-weight: bold;
+      }
+      .white{
+        color:#018ca8;
+      }
+      

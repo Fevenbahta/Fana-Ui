@@ -1,0 +1,38 @@
+<div class="login mt-5">
+  <div class="row">
+    <!-- Introduction Text on the Side -->
+     
+    <div class="col-md-6 intro-text">
+      
+      <p>Welcome to the FANA Transaction Manager. This platform manages transactions efficiently for Lion International Bank S.C.</p>
+    </div>
+
+    <!-- Login Form -->
+    <div class="col-md-6">
+      <div class="">
+        <a class="simple-text">
+          <img class="logo-img" src="/assets/img/logolib.png"/>
+          <span class="ml-2 logo-text">Lion International Bank S.C</span>
+        </a>
+      
+      <div class="login-container mt-3">
+        <h2>Login</h2>
+        <form (ngSubmit)="onSubmit()">
+          <div class="form-group">
+            <label for="username">Username:</label>
+            <input type="text" id="username" [(ngModel)]="username" name="username" required>
+          </div>
+          <div class="form-group">
+            <label for="password">Password:</label>
+            <input type="password" id="password" [(ngModel)]="password" name="password" required>
+          </div>
+          <button type="submit">Login</button>
+          <mat-error *ngIf="authService.locked" class="pull-right">Account is locked</mat-error>
+          <mat-error *ngIf="!authService.locked && authService.suspended" class="pull-right">User is Suspended</mat-error>
+          <mat-error *ngIf="!authService.locked && !authService.suspended && authService.roleincorrect" class="pull-right">Role is not assigned</mat-error>
+          <mat-error *ngIf="!authService.locked && !authService.suspended && !authService.roleincorrect && authService.incorrect" class="pull-right">Incorrect Username Or Password</mat-error>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

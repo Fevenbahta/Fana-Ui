@@ -1,0 +1,102 @@
+
+
+<app-nav class="fixed-header sharednav" [buttons]="buttons"></app-nav>
+    <div class="row  ">
+      
+    
+              <div class="col-md-12 ml-3">
+                <div class=" mt-5 mb-5">
+
+                    <div class="card">
+                      <div class="">
+                        <div class="card-header mt-5 cardhead">
+                            
+                           
+                            <p class="card-header cardhead" >Approve Request </p>      <div>       
+                             
+          <button *ngIf="this.cancelMessage" class=" col-md-2 alert alert-success  mt-3 ml-5">
+            Cancled!
+        </button>  </div>  
+                        </div> 
+                        
+             
+                        <div class="c  row col-md-8 ">
+                      
+    <table
+    class="table  table-bordered  table-striped compact-table " 
+    *ngIf="filteredTransfers.length || transfers.length" >    
+
+      <thead>
+        <tr>
+          <th>Branch</th>
+          <th>Transfer Type</th>
+          <th>Transfer Date</th>
+          <th>Member Id</th>
+          <th>CAccount Number</th>
+         
+          <th>DAccount Number</th>
+          <th>DAccount Owner</th>
+          <th>Depositor Phone</th>
+
+          <th>Amount</th>
+        </tr>
+      </thead>
+      <tbody>
+                  
+        <div class="loading-overlay" *ngIf="isSearching; else loadedData ">
+
+          <p>Loading......</p>
+        </div>
+        <mat-error *ngIf="networkError" class="wide-error">
+          {{ networkError }}
+        </mat-error>
+        
+        <tr *ngFor="let tr of filteredTransfers || transfers" >
+            <td>{{ tr.branch }}</td>
+          <td>{{ tr.transType }}</td>
+          <td>{{ tr.transDate }}</td>
+          <td>{{ tr.memberId }}</td>
+
+          <td>{{ tr.cAccountNo }}</td>
+  
+          <td>{{ tr.dAccountNo }}</td>
+
+          <td>{{ tr.dDepositeName }}</td>
+          <td>{{ tr.depositorPhone }}</td>
+          <td>{{ tr.amount }}</td>
+            <td>
+                                       
+
+                        <button class="btn btn-sm  btn-success mt-1 " [ngStyle]="{'font-size': '12px', 'padding': '4px 8px'}"
+                        (click)="approveTransfer(tr.id,tr)" >
+                        <i class="material-icons icon-green">check</i> </button> 
+          </td> 
+          <td>
+                                       
+
+            <button class="btn btn-sm btn-danger" [ngStyle]="{'font-size': '12px', 'padding': '4px 8px'}"
+            (click)="cancelTransfer(tr.id,tr)" >
+            <i class="material-icons icon-red">cancel</i></button> 
+</td> 
+                         
+        </tr>      <ng-template #loadedData></ng-template>
+      </tbody>
+
+  </table>
+       
+</div>
+<div *ngFor="let slip of approvalSlips">
+  <app-slip [transaction]="slip"></app-slip>
+</div>
+<div class=" mt-5 mb-5">
+<div class="row mt-5 mb-5">
+  <div class="col-md-10 mt-5 mb-5"></div>
+  <div class="col-md-10 mt-5 mb-5"></div>
+  <div class="col-md-10 mt-5 mb-5"></div>
+  <div class="col-md-10 mt-5 mb-5"></div>
+</div>
+</div></div>
+
+
+
+

@@ -1,0 +1,176 @@
+
+<div class="row ">
+  <div class=" container-fluid card ">
+     
+      <div class="row ml-5 mt-5">
+        <div class="">
+   <h4 class=" card-title  ml-4 mr-4 ">Application Users Admin Form </h4>
+      </div>
+        
+                <div class="col-md-8 ml-5">
+                  <div class="  mb-5">
+                      
+      
+  
+  <div class="card">  
+      <div class=" cardhead">
+          <h4 class=" btn-sm">Reset Password</h4>
+      
+      </div>
+  
+        <form (ngSubmit)="resetPassword()" >
+          
+          <div class="card-body">
+              <div class="row">
+                  <div class="col-md-3 form-group">
+                      <mat-select class="select" placeholder="Select User" name="selectedUserReset" required [(ngModel)]="selectedUserReset" (ngModelChange)="onUserselectedReset()">
+                        <mat-option *ngFor="let user of users" [value]="user.id">
+                          {{ user.userName }}
+                        </mat-option>
+                      </mat-select>
+                    </div>
+                       <div class="col-md-3">
+          <div class="form-field">
+            
+            <input type="text" placeholder="" name="userName" [(ngModel)]="resetUserData.userName" disabled>
+          <label >User Name:</label></div></div>
+          <div class="col-md-4">
+              <div class="col-md-4">
+                  <div class="form-field">
+                       <input type="text" placeholder=""  name="role" [(ngModel)]="resetUserData.role" disabled>
+                  <label>Role :</label>
+                 </div></div>
+            </div>
+        <div  class="col-md-2">
+          <button type="submit" class="btn btndelete">Reset </button>
+        </div>
+          
+  </div> <div *ngIf="usedReset" class="  btn-sm btnsave pull-left mb-2">
+           successfull!
+         </div >   </div>
+        </form>
+      </div>
+  
+  <div class="card">
+      <div class="  cardhead">
+          <h4 class="btn-sm">Suspend user</h4>
+      
+      </div>
+        <form (ngSubmit)="removeUser()" >
+          <div class="card-body">
+              <div class="row">
+                  <div class="col-md-3 form-group">
+                      <mat-select class="select" placeholder="Select User" name="selectedUserDelete" required [(ngModel)]="selectedUserDelete" (ngModelChange)="onUserselected()">
+                        <mat-option *ngFor="let user of unsuspendedUsers" [value]="user.id">
+                          {{ user.userName }}
+                        </mat-option>
+                      </mat-select>
+                    </div>
+          <div class="col-md-3">
+          <div class="form-field">
+               <input type="text" placeholder=""  name="deleteUserName" [(ngModel)]="deleteUserData.userName" disabled>
+          <label>User Name:</label>
+         </div></div>
+  
+      
+          <div class="col-md-4">
+              <div class="col-md-4">
+                  <div class="form-field">
+                       <input type="text" placeholder=""  name="role" [(ngModel)]="deleteUserData.role" disabled>
+                  <label>Role :</label>
+                 </div></div>
+            </div>    <div  class="col-md-2">
+                  <button type="submit" class="btn btndelete">Suspend</button>
+                </div>
+        </div>
+        
+          
+              </div>  <div *ngIf="userDeleted" class="  btn-sm btnsave pull-left mb-2">
+                   successfull!
+                 </div >
+        </form>
+      </div>
+      <div class="card">
+        <div class="  cardhead">
+            <h4 class="btn-sm">Remove Suspension</h4>
+  
+        </div>
+          <form (ngSubmit)="unsuspendUser()" >
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-3 form-group">
+                        <mat-select class="select" placeholder="Select User" name="selectedUserUnsuspend" required [(ngModel)]="selectedUserUnsuspend" (ngModelChange)="onUserselectedUnsuspended()">
+                          <mat-option *ngFor="let user of suspendedUsers" [value]="user.id">
+                            {{ user.userName }}
+                          </mat-option>
+                        </mat-select>
+                      </div>
+            <div class="col-md-3">
+            <div class="form-field">
+                 <input type="text" placeholder=""  name="userName" [(ngModel)]="unsuspendUserData.userName" disabled>
+            <label>User Name:</label>
+           </div></div>
+    
+        
+            <div class="col-md-4">
+                <div class="col-md-4">
+                    <div class="form-field">
+                         <input type="text" placeholder=""  name="role" [(ngModel)]="unsuspendUserData.role" disabled>
+                    <label>Role :</label>
+                   </div></div>
+              </div>    <div  class="col-md-2">
+                    <button type="submit" class="btn btndelete">Save </button>
+                  </div>
+          </div>
+          
+            
+                </div>  <div *ngIf="userUnsuspended" class="  btn-sm btnsave pull-left mb-2">
+                     successfull!
+                   </div >
+          </form>
+        </div>
+  
+  
+        <div class="card">
+          <div class="  cardhead">
+              <h4 class="btn-sm">UnLock</h4>
+    
+          </div>
+            <form (ngSubmit)="unlockUser()" >
+              <div class="card-body">
+                  <div class="row">
+                      <div class="col-md-3 form-group">
+                          <mat-select class="select" placeholder="Select User" name="selectedUserUnlocked" required [(ngModel)]="selectedUserUnlocked" (ngModelChange)="onUserselectedUnlocked()">
+                            <mat-option *ngFor="let user of lockedUsers" [value]="user.id">
+                              {{ user.userName }}
+                            </mat-option>
+                          </mat-select>
+                        </div>
+              <div class="col-md-3">
+              <div class="form-field">
+                   <input type="text" placeholder=""  name="userName" [(ngModel)]="lockUserData.userName" disabled>
+              <label>User Name:</label>
+             </div></div>
+      
+          
+              <div class="col-md-4">
+                  <div class="col-md-4">
+                      <div class="form-field">
+                           <input type="text" placeholder=""  name="role" [(ngModel)]="lockUserData.role" disabled>
+                      <label>Role :</label>
+                     </div></div>
+                </div>    <div  class="col-md-2">
+                      <button type="submit" class="btn btndelete">Save </button>
+                    </div>
+            </div>
+            
+              
+                  </div>  <div *ngIf="userUnlocked" class="  btn-sm btnsave pull-left mb-2">
+                       successfull!
+                     </div >
+            </form>
+          </div>
+  
+  
+    </div></div>
+    </div>

@@ -1,0 +1,42 @@
+<div class="approval-slip" #printSection>
+  <a >
+    <img src="/assets/img/LIBLogo2.jpg" class="logo-img" />
+    <span class="slip-title">LION INTERNATIONAL BANK S.C</span>
+  </a>
+    <p class="date">Date .....: {{ transaction.transDate | date: 'dd MMMM yyyy \'at\' HH:mm' }}</p>
+                
+    <div class="left-section">  
+      <h6 class="cooperative-name">{{ transaction.transType === 'Cash' ? 'CASH DEPOSIT SAVING' : 'ACCOUNT TO ACCOUNT TRANSFER' }} ACC. SLIP No. {{ transaction.id }}</h6>
+   
+      <p class="teller">Inputing Branch .....: {{ transaction.branch }}</p>
+      <p class="currency">Currency ...: ETB ETHIOPIAN BIRR </p>
+      
+      <p class="teller">Authorized By .....: {{ transaction.approvedBy }}</p>
+
+      <hr class="slip-divider">
+
+      <div class="slip-section">
+        <p>MR / MRS ......: {{ transaction.dDepositeName }}</p>
+        <p>Debit Account No ....... {{ transaction.dAccountNo }}</p>
+        <p>Debited Account Branch ......: {{ transaction.cAccountBranch }}</p>
+        <p>Depositor Phone  ......: {{ transaction.depositorPhone }}</p>
+        <p>Member ID ........: {{ transaction.memberId }}</p>
+      </div>
+    </div>
+
+    <div class="right-section">
+      <div class="slip-section">
+        <p>Credit Account Owner .......: {{ transaction.cAccountOwner }}</p>
+        <p>Credit Account Number .....: {{transaction.cAccountNo}}</p>
+        <p>Credit Account Branch .....: {{ transaction.branch }}</p>
+      
+        <p>Amount ......: {{ transaction.amount | number: '1.2-2' }} ETB</p>
+   
+          <p>Transaction Type .....: {{ transaction.transType }}</p>
+               </div>
+    </div>
+
+    <div class="clear"></div>
+  </div>
+
+<button (click)="printSlip()" class="btn btn-primary">Print</button>

@@ -1,0 +1,335 @@
+/* Add styles for the loading spinner container */
+.loading-spinner-container {
+  position: fixed;
+  top: 40%;
+  left: 40%;
+  transform: translate(-50%, -50%);
+  z-index: 1100;
+  font-family: 'Times New Roman', Times, serif;
+}
+
+.loading-overlay {
+  position: fixed;
+  top: 100px;
+  left: 0;
+  width: 100%;
+  height: 1%;
+  background-color: rgba(255, 255, 255, 0);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  margin-top: 10%;
+  font-family: 'Times New Roman', Times, serif;
+}
+
+.color {
+  color: white;
+  font-family: 'Times New Roman', Times, serif;
+}
+
+.btnsp {
+  color: #09b9dd;
+  font-family: 'Times New Roman', Times, serif;
+}
+
+.cardhead {
+  background-color: rgb(217, 222, 224);
+  color: black;
+  font-family: 'Times New Roman', Times, serif;
+}
+
+.carhead {
+  background-color: #f89914;
+  color: black;
+  font-family: 'Times New Roman', Times, serif;
+}
+
+.fixed-header {
+  position: fixed;
+  top: 90px;
+  width: 100%;
+  z-index: 100; /* Adjust z-index as needed */
+  font-family: 'Times New Roman', Times, serif;
+}
+
+.btnex {
+  color: #09b9dd;
+  background-color: #f8fafa;
+  font-family: 'Times New Roman', Times, serif;
+}
+
+.btndel {
+  color: black;
+  background-color: #f8fafa;
+  font-family: 'Times New Roman', Times, serif;
+}
+
+/* Style for the input fields */
+input[type="text"] {
+  padding: 8px;
+  margin-right: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  font-family: 'Times New Roman', Times, serif;
+}
+
+/* Style for the search button */
+button {
+  padding: 8px 12px;
+  background-color: #ffffff;
+  color: rgb(10, 10, 10);
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-family: 'Times New Roman', Times, serif;
+}
+
+button:hover {
+  background-color: #bed5da;
+}
+
+.form-field input:disabled {
+  background-color: #faffff;
+  color: #0d0d0d;
+  font-family: 'Times New Roman', Times, serif;
+}
+
+form-field {
+  position: relative;
+  margin-bottom: 20px;
+  font-family: 'Times New Roman', Times, serif;
+}
+
+.form-field input.wider-input {
+  width: 100%; /* Make this input wider */
+  font-family: 'Times New Roman', Times, serif;
+}
+
+.form-field input {
+  border: none;
+  border-bottom: 1px solid #ccc;
+  border-top: 1px solid #ccc;
+  border-right: 1px solid #ccc;
+  border-left: 1px solid #ccc;
+  outline: none;
+  width: 70%;
+  padding: 5px;
+  font-size: 16px;
+  font-family: 'Times New Roman', Times, serif;
+}
+
+.form-field label {
+  position: absolute;
+  top: -20px;
+  left: 5px;
+  font-size: 14px;
+  color: black;
+  pointer-events: none;
+  transition: 0.2s ease all;
+  font-family: 'Times New Roman', Times, serif;
+}
+
+.white {
+  color: #09b9dd;
+  font-family: 'Times New Roman', Times, serif;
+}
+
+.form-field input:focus ~ label,
+.form-field input:not(:placeholder-shown) ~ label {
+  top: -20px;
+  left: 5px;
+  font-size: 14px;
+  color: rgb(12, 12, 12);
+  background-color: #fff;
+  padding: 0 5px;
+  font-family: 'Times New Roman', Times, serif;
+}
+
+.compact-table th {
+  font-size: 13px;
+  color: black;
+  font-weight: 650; /* Adjust the font size as needed */
+  font-family: 'Times New Roman', Times, serif;
+}
+
+.compact-table tr {
+  font-size: 13px; /* Adjust the font size as needed */
+  font-family: 'Times New Roman', Times, serif;
+}
+
+.compact-table th,
+.compact-table td {
+  padding: 4px 8px;
+  font-family: 'Times New Roman', Times, serif;
+}
+
+td,
+th {
+  white-space: nowrap; /* Prevent text wrapping */
+  font-family: 'Times New Roman', Times, serif;
+}
+
+.small {
+  width: 5%;
+  font-family: 'Times New Roman', Times, serif;
+}
+
+.btndanger {
+  color: rgb(248, 245, 245);
+  font-family: 'Times New Roman', Times, serif;
+}
+
+.inputserach {
+  width: 300px;
+  background: transparent;
+  margin: 0;
+  padding: 7px 8px;
+  font-size: 14px;
+  color: inherit;
+  border: 1px solid transparent;
+  border-radius: 50px;
+  background: transparent url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' class='bi bi-search' viewBox='0 0 16 16'%3E%3Cpath d='M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z'%3E%3C/path%3E%3C/svg%3E") no-repeat right;
+  font-family: 'Times New Roman', Times, serif;
+}
+
+input[type="search"]::placeholder {
+  color: #ffffff;
+  font-family: 'Times New Roman', Times, serif;
+}
+
+button[type="submit"]:focus,
+input[type="search"]:focus {
+  box-shadow: 0 0 2px 0 #fcc034;
+  border-color: #fcc034;
+  outline: none;
+  font-family: 'Times New Roman', Times, serif;
+}
+
+.search {
+  box-shadow: 0 0 1px 0 #bbb;
+  border-color: #ed910f;
+  outline: none;
+  font-family: 'Times New Roman', Times, serif;
+}
+
+.btndelete {
+  background-color: hsl(191, 27%, 80%);
+  color: black;
+  border-radius: 20px; /* Adjust the value to control the roundness */
+  padding: 7px 12px; /* Add padding for better appearance */
+  font-size: 14px;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif; /* Adjust the font size */
+  /* Text color */
+  /* Remove border */
+  cursor: pointer; /* Add cursor pointer on hover */
+  transition: background-color 0.3s;
+}
+
+.btnsave {
+  background-color: #09b9dd;
+  color: white;
+  font-family: 'Times New Roman', Times, serif;
+}
+
+.table-container {
+  width: 100%; /* Set the width of the container */
+  overflow-x: auto; /* Enable horizontal scrolling */
+  -webkit-overflow-scrolling: touch; /* Enable smooth scrolling on iOS devices */
+  font-family: 'Times New Roman', Times, serif;
+}
+
+.table-striped tbody tr:nth-child(odd) td {
+  background-color: #f2f2f2; /* Optional: Alternating row background color */
+  font-family: 'Times New Roman', Times, serif;
+}
+
+.table-striped tbody tr td {
+  border-right: 1px solid #ddd; /* Add right border between columns */
+  font-family: 'Times New Roman', Times, serif;
+}
+
+.table-striped thead th {
+  border-bottom: 2px solid #ddd; /* Add bottom border to table header */
+  font-family: 'Times New Roman', Times, serif;
+}
+
+.table-container {
+  overflow-x: auto;
+  max-height: 400px; /* Adjust as needed */
+  font-family: 'Times New Roman', Times, serif;
+}
+
+.table-container::-webkit-scrollbar {
+  width: 10px;
+}
+
+.table-container::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+.table-container::-webkit-scrollbar-thumb {
+  background: #888;
+}
+
+.table-container::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+.btngray {
+  background: #fcc034;
+  color: black;
+  font-family: 'Times New Roman', Times, serif;
+}
+
+/* Style for Payment Method Dropdown */
+.payment-method-select {
+  width: 10%; /* Set the width to 100% of its container */
+  padding: 10px; /* Add padding */
+  font-size: 16px; /* Set font size */
+  border: 1px solid #ced4da; /* Add border */
+  border-radius: 4px; /* Add border radius */
+  font-family: 'Times New Roman', Times, serif;
+}
+
+/* Style for Payment Method Label */
+.payment-method-label {
+  margin-bottom: 5px; /* Add margin bottom */
+  font-weight: bold; /* Set font weight to bold */
+  font-family: 'Times New Roman', Times, serif;
+}
+
+.center {
+  margin-left: 350px;
+  font-family: 'Times New Roman', Times, serif;
+}
+
+.center2 {
+  margin-left: 380px;
+  font-family: 'Times New Roman', Times, serif;
+}
+
+/* Style for Payment Method Option */
+.payment-method-option {
+  font-size: 16px; /* Set font size */
+  font-family: 'Times New Roman', Times, serif;
+}
+
+/* Style for Payment Method Option Placeholder */
+.payment-method-placeholder {
+  color: #6c757d; /* Set placeholder color */
+  font-family: 'Times New Roman', Times, serif;
+}
+
+mat-error {
+  display: block;
+  font-family: 'Times New Roman', Times, serif;
+}
+h6{
+  font-family: 'Times New Roman', Times, serif;
+  font-weight: bold;
+}
+.uppercase-text {
+  text-transform: uppercase;
+}

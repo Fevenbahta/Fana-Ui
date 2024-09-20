@@ -1,0 +1,139 @@
+/* login.component.css */
+.intro-text {
+  color: #04869f; /* Blue header text */
+  font-size: 16px;
+  margin: 0 auto; /* Center the element horizontally */
+  width: 300px; /* Example width */
+  font-family: 'Times New Roman', Times, serif;
+  background: linear-gradient(to left, #fbfcfc, #ffffff); /* Light blue background */
+  text-align: center; /* Center text horizontally within the element */
+  padding: 10px; /* Example padding */
+margin-top: 150px;
+margin-bottom: 200px;
+border-radius: 5%;
+}
+.intro-text p {
+  position: relative; /* Make the position relative for pseudo-elements */
+  font-size: 16px; /* Adjust font size */
+  line-height: 1.5; /* Adjust line height */
+  margin: 0; /* Remove default margin */
+}
+.intro-text p::before,
+.intro-text p::after {
+  content: '';
+  display: block;
+  width: 50%;
+  border-top: 1px solid #04869f; /* Blue border */
+  margin: 0 auto; /* Center the line */
+  margin-top: 10px; /* Adjust spacing */
+}
+
+.intro-text p::before {
+  margin-bottom: 10px; /* Adjust spacing between lines */
+}
+
+.intro-text p::after {
+  margin-top: 10px; /* Adjust spacing between lines */
+}
+/* Container for the login form */
+.login {
+  width: 700px;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ffffff;
+  border-radius: 5px;
+  background: linear-gradient(to left, #7fd8e3, #04869f) /* Light blue background */
+}
+.logo-text{
+  color:white;
+}
+.login-container {
+  width: 300px;
+  margin: 0 auto;
+  padding: 20px;
+font-family:'Times New Roman', Times, serif;
+  border-radius: 5px;
+  background-color: white; /* Light blue background */
+}
+/* Form header */
+.login-container h2 {
+  text-align: center;
+  margin-bottom: 40px;
+  color: #020202; 
+  font-family:'Times New Roman', Times, serif;/* Blue header text */
+}
+
+/* Form inputs */
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+  color: #09b9dd; /* Blue label text */
+}
+
+.form-group input[type="text"],
+.form-group input[type="password"] {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+/* Form button */
+button[type="submit"] {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  background-color: #ff9b10; /* Blue button background */
+  color: #171616; /* White button text */
+  cursor: pointer;
+}
+
+button[type="submit"]:hover {
+  background-color: #fca417; /* Darker blue on hover */
+}
+
+
+.smaller-width {
+  width: 100%;
+  margin-left: 0%; /* Adjust the width value as per your requirement */
+}
+.logo-text {
+  color: rgb(255, 255, 255); /* Set text color to white */
+  text-decoration: none;
+  text-size-adjust:inherit;
+  font-weight: bold; /* Remove underline */
+}
+.slogan{
+  color:white;
+ text-decoration-line:none;
+ text-decoration: rgb(75, 149, 203);
+ align-items: left;
+ text-align: right;
+}
+.fixed-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 100;
+}
+
+.logo-img{
+  width:20%;
+  height: 20%;
+    }
+    .nav-li{
+color:gray;
+size: small;
+
+text-decoration-line: none;
+    }
+    .nav-link-text{
+      color:black;
+      font-weight: bold;
+    }
