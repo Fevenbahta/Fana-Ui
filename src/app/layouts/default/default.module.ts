@@ -14,7 +14,7 @@ import {MatSelectModule} from '@angular/material/select';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatMenuModule } from '@angular/material/menu';
-import { MatRadioModule } from '@angular/material/radio';
+import { MAT_RADIO_DEFAULT_OPTIONS, MatRadioModule } from '@angular/material/radio';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatCardModule } from '@angular/material/card';
@@ -22,6 +22,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableModule } from '@angular/material/table';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
+import { ToastrModule } from 'ngx-toastr';
 
 import { SharedModule } from 'app/shared/shared.module';
 import { DefaultComponent } from './default.component';
@@ -50,6 +51,13 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SlipComponent } from 'app/modules/slip/slip.component';
 import { BranchreportComponent } from 'app/modules/branchreport/branchreport.component';
 import { GeneralReportComponent } from 'app/modules/general-report/general-report.component';
+import { IFRSRequestComponent } from 'app/modules/ifrs-request/ifrs-request.component';
+import { IFRSApprovalComponent } from 'app/modules/ifrs-approval/ifrs-approval.component';
+import { IFRSReportComponent } from 'app/modules/ifrs-report/ifrs-report.component';
+import { ReceiptComponent } from 'app/modules/receipt/receipt.component';
+import { IFRSAllbranchReportComponent } from 'app/modules/ifrs-allbranch-report/ifrs-allbranch-report.component';
+import { FanaCustomViewComponent } from 'app/modules/fana-custom-view/fana-custom-view.component';
+import { FanaAccountStatementComponent } from 'app/modules/fana-account-statement/fana-account-statement.component';
 
 @NgModule({
   declarations: [
@@ -67,6 +75,13 @@ import { GeneralReportComponent } from 'app/modules/general-report/general-repor
     SlipComponent,
     BranchreportComponent,
     GeneralReportComponent,
+    IFRSRequestComponent,
+    IFRSApprovalComponent,
+    IFRSReportComponent,
+    ReceiptComponent,
+  FanaCustomViewComponent,
+  FanaAccountStatementComponent,
+    IFRSAllbranchReportComponent,
 
   ],
   imports: [
@@ -103,12 +118,18 @@ import { GeneralReportComponent } from 'app/modules/general-report/general-repor
   MatProgressSpinnerModule,
   BrowserAnimationsModule,
   MatSnackBarModule,
-
+  ToastrModule.forRoot({
+    timeOut: 3000,
+    positionClass: 'toast-top-right',
+    closeButton: true,
+    progressBar: true
+  })
 
   ],
 
 providers: [
-
+  {   provide: MAT_RADIO_DEFAULT_OPTIONS,
+    useValue: { color: 'primary' },}
 ],
 })
 export class DefaultModule { }

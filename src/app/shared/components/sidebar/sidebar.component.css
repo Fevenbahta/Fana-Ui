@@ -1,16 +1,23 @@
+.nav {
+  padding: 0; /* Remove any padding */
+  margin: 0; /* Remove any margin */
+  text-align: left; /* Align text to the left */
+  display: block; /* Ensure block-level display for the nav container */
+  width: 100%; /* Make the nav take up the full width of its container */
+}
 
-.nav-link{
+
+.navlink{
 
   color:white;
 height: 50px;
 padding: 0px;
 font-family: 'Times New Roman', Times, serif;
-
+width:250px
 }
-.nav-item{
+.navitem{
   font-family: 'Times New Roman', Times, serif;
-  background: linear-gradient(to left, #0595a8, #16c1e4); 
-color:white;
+  color:white;
 }
 
 .cardbody{
@@ -23,22 +30,15 @@ color:white;
   font-family: 'Times New Roman', Times, serif;
 }
 
-.user{
-color:#09badd;
-}
-.nav-item:active{
-   color:white;
-   background: linear-gradient(to right, #7fd8e3, #0495b3)
-}
+
   .logo-img{
     width:30%;
     height: 30%;
       }
       .sidebar {
-        border-top-right-radius: 10%;
-        border-bottom-right-radius: 10%;
+  
         overflow: hidden;
-        width: 200px;
+        width: 210px;
         box-shadow:rgb(19, 18, 18);
         font-family: 'Times New Roman', Times, serif;
       }
@@ -47,48 +47,76 @@ color:#09badd;
     width:30%;
     height: 30%;
       }
-      
+.sidebar{
+  background: linear-gradient(to right, rgb(0, 110, 156), rgb(0, 66, 93));
+  color:white
+}
+ .li{
+  color:white
+ }
 
-      
 
-  .logo-img{
-    width:30%;
-    height: 30%;
-      }
- 
-/* 
-@media (max-width: 576px) {
-  .sidebar-wrapper {
-    width:80;
-  }
-  .logo-img{
-    width:5%;
-    height: 10%;
-      }
-
+ .sidebar {
+  background: linear-gradient(to right, rgb(0, 110, 156), rgb(0, 66, 93));
+  color:white;
+  height: 100vh;
+  padding-left:-10px 0;
 }
 
 
-@media (min-width: 577px) and (max-width: 992px) {
-  .sidebar-wrapper {
-    width: 100%;
-  }
-  .logo-img{
-    width:10%;
-    height: 20%;
-      }
+.sidebar .nav {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  padding-right: 20px ;
+}
 
+.sidebar .nav .navlink {
+  display: flex;
+  align-items: left;
+  padding: 0px 0px;
+  text-decoration: none;
+  color: white;
+  transition: all 0.3s ease;
+}
+
+.sidebar .nav .navlink:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  text-decoration: none;
+}
+
+.sidebar .nav .navitem.active .navlink,
+.sidebar .nav .navlink.router-link-active {
+  background-color: white;
+  color:09badd;
+  font-weight: bold;
+}
+
+.sidebar .nav .navlink i {
+  margin-right: 0px;
+  color: inherit;
+}
+
+.sidebar .nav .navlink p {
+  margin: 0;
+  padding-right: 10px ;
+}
+
+.cardbody.user {
+  font-weight: bold;
+  padding-right: 10px ;
+  margin-bottom: 20px;
+  color: white;
 }
 
 
-@media (min-width: 993px) {
-  .sidebar-wrapper {
-    width: 120%; 
-  }
-  .logo-img{
-    width:30%;
-    height: 30%;
-      }
 
 
-} */
+
+
+
+
+
+
+
+

@@ -1,0 +1,259 @@
+
+
+
+<div class="row card">
+    <div class=" container-fluid  ">
+       
+        <div class="row ">
+          <div class=""><app-nav class=" sharednav fixed-header" [buttons]="filterButtonsByRole()"></app-nav>
+    
+        </div></div></div>
+ 
+       
+ 
+          <div class="mt-5">
+            <div class="row">
+          
+                <div class="card">
+                  <div class="col-md-12 mt-3 ">         <!-- Branch Input -->
+                 
+                  
+
+                       <div class="loading-overlay" *ngIf="isLoading; ">
+                        <div class="spinner"></div>
+                        <p class="loading-text">Loading<span class="dot">...</span></p>
+                      </div>
+                       <div class="card-header">
+              
+                        <div class="d-flex align-items-center">
+                          <img src="/assets/img/logolib.png" alt="LION INTERNATIONAL BANK S.C Logo" style="width: 50px; height: auto; margin-right: 10px;">
+                          <h6 class="mt-3 ">LION INTERNATIONAL BANK S.C</h6>
+                        </div>     <h6 class=" mt-3 text-center">RTGS - ATM - Cheque REPORT</h6>
+               
+                 <div>
+                         <h6 class="card-body mt-3">General Report</h6>
+                         <!-- Branch Input -->
+                         <input
+                           type="text"
+                           [(ngModel)]="branchSearchTerm"
+                           placeholder=" By Inputting Branch"
+                         />
+       
+                         <!-- Tag Number Input -->
+                         <input
+                           type="text"
+                           [(ngModel)]="accountSearchTerm"
+                           placeholder="By Account "
+                         />
+       
+                         <span class="status-dropdown mr-1">
+                           <label for="transferSearchTerm">TransferType:</label>
+                           <select id="transferSearchTerm" [(ngModel)]="transferSearchTerm">
+                             <option value="">All</option>
+                             <option value="RTGS">RTGS</option>
+                             <option value="ATM">ATM</option>
+                             <option value="Derash">Derash</option>
+                             <option value="Cheque">Cheque</option>
+                             <option value="Passbook">Passbook</option>
+                           </select>
+                         </span>
+ 
+                       <span>From:</span>  <input type="date" [(ngModel)]="startDate" placeholder="Start Date" class="date-input ml-1">
+                        <span>To:</span> <input type="date" [(ngModel)]="endDate" placeholder="End Date" class="date-input">
+                     
+                        <span class="status-dropdown mr-1 ml-3">
+                          <label for="statusSearchTerm">Status:</label>
+                          <select id="statusSearchTerm" [(ngModel)]="statusSearchTerm">
+                            <option value="All">All</option>
+                            <option value="Approved">Successful</option>
+                            <option value="">Rejected</option>
+                          </select>
+                        </span>
+
+                        <div class="mt-3"> <button class="btnor btn-sm btn " (click)="onMultipleSearch()">
+                           Search
+                         </button></div>
+                        
+                       </div>
+            
+      <!-- Loading Indicator -->
+ <!-- Loading Indicator -->
+ <!-- Loading Indicator -->
+
+ <div class="table-wrapper">
+  <!-- Display total number of rows at the top -->
+ 
+
+  <!-- Table with scrolling tbody -->
+  <table class="table table-responsive table-striped col-md-12 compact-table" *ngIf="filteredreports.length || reportdata.length">
+    <p class="total-count">Total Rows: {{ filteredreports.length }}</p>
+    <div>
+      <button class="btn btn-sm" (click)="exportToPDF()">
+        <i class="material-icons icon-red">picture_as_pdf</i>
+      </button>
+      <button class="btn btn-sm" (click)="exportToExcel()">
+        <i class="material-icons icon-green">insert_drive_file</i>
+      </button>
+    </div>
+
+    <!-- Table header -->
+    <thead>
+      <tr>
+        <th>No</th>
+        <th>Transaction Date</th>
+        <th>Debitor Name</th>
+        <th>Debited Account</th>
+        <th>Credited Account</th>
+        <th>Inputting Branch</th>
+        <th>Reference Number</th>
+        <th>Amount</th>
+        <th>Service Fee 1</th>
+        <th>Vat 1</th>
+        <th>Service Fee 2</th>
+        <th>Vat 2</th>
+        <th>Transaction Type</th>
+        <th>Receipt No</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+
+    <!-- Scrollable table body -->
+    <tbody class="scrollable-tbody">
+      <tr *ngFor="let report of filteredreports; let i = index">
+        <td>{{ i + 1 }}</td>
+        <td>{{ report.transaction_Date }}</td>
+        <td class="uppercase-text">{{ report.debitor_Name }}</td>
+        <td class="uppercase-text">{{ report.account_No }}</td>
+        <td class="uppercase-text">{{ report.cAccountNo }}</td>
+        <td class="uppercase-text">{{ report.inputing_Branch }}</td>
+        <td>{{ report.refno }}</td>
+        <td>{{ report.amount1 | number: '1.2-2' }}</td>
+        <td>{{ report.serviceFee | number: '1.2-2' }}</td>
+                            <td>{{ report.vat| number: '1.2-2' }}</td>
+                            <td>{{ report.serviceFee2 | number: '1.2-2' }}</td>
+                            <td>{{ report.vat2| number: '1.2-2' }}</td>
+        <td>{{ report.paymentType }}</td>
+        <td>{{ pad(report.id) }}</td>
+        <td>
+          <button  *ngIf="report.status === 'Approved'" class="btn btn-sm material-icons1" (click)="printReceipt(report)" [ngStyle]="{'font-size': '10px', 'padding': '4px 6px'}">
+            <i class="material-icons">print</i> print
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+                     <p *ngIf="!(filteredreports.length || reportdata.length)">
+                       No transaction found
+                     </p>
+                   </div>
+                 </div>
+               </div>
+               <div id="receiptContent" style="display: none;">
+                 <div class="receipt">
+                     <div class="receipt-header">
+                         <img src="assets/img/LIBLogo2.jpg" alt="Abay Bank Logo" class="logo-img" />
+                         <h2 class="slip-title">Abay Bank S.C</h2>
+                         <p>TIN No: 0012812734</p>
+                         <p>VAT Reg. No: 0012812734</p>
+                         <p>VAT Reg. Date: 1/15/2024</p>
+                     </div>
+             
+                     <div class="transaction-info">
+                         <h3>Transaction Information / የግብይት መረጃ</h3>
+                         <table>
+                             <tr>
+                                 <th>Payer Name / የተከፈለ ስም:</th>
+                                 <td></td>
+                             </tr>
+                             <tr>
+                                 <th>Payer Bank Acc. No / የተከፈለ የባንክ አካውንት ቁጥር:</th>
+                                 <td></td>
+                             </tr>
+                             <tr>
+                                 <th>Payer TIN No / የተከፈለ ቲአይን ቁጥር:</th>
+                                 <td></td>
+                             </tr>
+                             <tr>
+                                 <th>Payer Address / የተከፈለ አድራሻ:</th>
+                                 <td></td>
+                             </tr>
+                             <tr>
+                                 <th>Payer Phone / የተከፈለ ስልክ ቁጥር:</th>
+                                 <td></td>
+                             </tr>
+                         </table>
+                     </div>
+                     
+                     <div class="transaction-details">
+                         <h3>Transaction Details / የግብይት ዝርዝር</h3>
+                         <table>
+                             <tr>
+                                 <th>Transaction No / የግብይት ቁጥር:</th>
+                                 <td></td>
+                             </tr>
+                             <tr>
+                                 <th>Product / ምርት:</th>
+                                 <td></td>
+                             </tr>
+                             <tr>
+                                 <th>Settled Amount / የተከፈለ እቃ መጠን:</th>
+                                 <td></td>
+                             </tr>
+                             <tr>
+                                 <th>Service Fee / የአገልግሎት ክፍያ:</th>
+                                 <td></td>
+                             </tr>
+                             <tr>
+                                 <th>VAT (15%) / ኤቭኤቲ (15%):</th>
+                                 <td></td>
+                             </tr>
+                             <tr>
+                                 <th>Total Paid Amount / አጠቃላይ የተከፈለ መጠን:</th>
+                                 <td></td>
+                             </tr>
+                         </table>
+                     </div>
+                     
+                     <div class="amount-in-words">
+                         <h3>Total Amount in Words / የተከፈለ መጠን በቃል</h3>
+                         <table>
+                             <tr>
+                                 <th>Amount:</th>
+                                 <td></td>
+                             </tr>
+                         </table>
+                     </div>
+                     
+                     <div class="payment-method">
+                         <h3>Payment Method / የክፍያ ዘዴ</h3>
+                         <table>
+                             <tr>
+                                 <th>Method:</th>
+                                 <td></td>
+                             </tr>
+                         </table>
+                     </div>
+                     
+             
+                     <div class="footer">
+                         <img src="path/to/qr-code.png" alt="QR Code" class="qr-code" />
+                         <p>Abay Bank S.C</p>
+                         <p>Zuqualu Complex, Jomo Kenyatta Ave. | P.O.Box: 5887 Addis Ababa, Ethiopia</p>
+                         <p>Tel: +251 11 515 8961 | Fax: +251 11 515 8282</p>
+                         <p>Email: info@abaybanks.com</p>
+                     </div>
+                 </div>
+             </div>
+             
+             
+             </div>
+           
+   
+     
+ 
+ 
+ 
+ 
+ 

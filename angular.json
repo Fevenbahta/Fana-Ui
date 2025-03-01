@@ -28,7 +28,8 @@
               "node_modules/perfect-scrollbar/css/perfect-scrollbar.css",
               "@angular/material/prebuilt-themes/indigo-pink.css",
               "src/assets/styles.scss",
-              "node_modules/bootstrap/dist/css/bootstrap.css"
+              "node_modules/bootstrap/dist/css/bootstrap.css",
+                "node_modules/ngx-toastr/toastr.css"
             ],
             "scripts": [
               "node_modules/@popperjs/core/dist/umd/popper.min.js",
@@ -53,8 +54,8 @@
                 },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "10kb",
-                  "maximumError": "10kb"
+                  "maximumWarning": "12kb",
+                  "maximumError": "12kb"
                 }
               ],
               "outputHashing": "all"
@@ -111,7 +112,8 @@
               "node_modules/perfect-scrollbar/css/perfect-scrollbar.css",
               "@angular/material/prebuilt-themes/indigo-pink.css",
               "src/assets/styles.scss",
-              "node_modules/bootstrap/dist/css/bootstrap.css"
+              "node_modules/bootstrap/dist/css/bootstrap.css", 
+                     "node_modules/ngx-toastr/toastr.css"
             ],
             "scripts": [
               "node_modules/@popperjs/core/dist/umd/popper.min.js",
@@ -120,6 +122,7 @@
               "node_modules/bootstrap-material-design/dist/js/bootstrap-material-design.min.js",
             
               "node_modules/bootstrap-notify/bootstrap-notify.js"
+        
            
             ]
           }

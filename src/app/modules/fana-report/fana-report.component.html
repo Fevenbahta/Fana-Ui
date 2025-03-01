@@ -1,8 +1,7 @@
-    
-  <div class="">
 
-  </div>
-  <div class="row card">
+
+
+<div class="row card">
   <div class=" container-fluid  ">
      
       <div class="row ">
@@ -10,18 +9,19 @@
   
       </div></div></div>
 
-      <div class="mt-5 ">
-        <div class="mt-5 ">
-          <div class="row">
+
+          <div class="row mt-5">
         
               <div class="card">
-                <div class="col-md-12 mt-2 ">         <!-- Branch Input -->
+                <div class="col-md-12  ">         <!-- Branch Input -->
                
                   
                      <div class="card-header">
             
-                  <h6 class=" mt-3 text-center">LION INTERNATIONAL BANK S.C</h6>
-                  <h6 class=" mt-3 text-center">TRANSACTION REPORT</h6>
+                      <div class="d-flex align-items-center">
+                        <img src="/assets/img/logolib.png" alt="LION INTERNATIONAL BANK S.C Logo" style="width: 50px; height: auto; margin-right: 10px;">
+                        <h6 class="mt-3 ">LION INTERNATIONAL BANK S.C</h6>
+                      </div>  <h6 class=" mt-3 text-center">TRANSACTION REPORT</h6>
                   <h6 class=" mt-3">Account Name: Fana Youth Saving And Credit Limited Cooprative</h6>
                   
                   <h6 class=" mt-3">Accont Number: 00310095104-87</h6>
@@ -30,24 +30,26 @@
                   <div class=" "></div>
                 </div>
     
-                <div>
-
-                    <div>
+                <div >
+<div class="ml-5"> <span class="ml-5">
                         <label for="startDate">Date covered : From</label>
                         <input type="date" id="startDate" [(ngModel)]="startDate" />
-                      
+                    </span><span class="ml-3">
                         <label for="endDate">To:</label>
                         <input type="date" id="endDate" [(ngModel)]="endDate" />
                       
-                        <button (click)="generateReport()">Generate</button>
-                      </div>
-
+                        <button (click)="generateReport()" class="btn btnor">Search</button>
+                    </span></div>
+                   
+              
                   <table
                     class="table  table-responsive table-striped col-md-12 compact-table"
                     *ngIf="filteredreports.length || reportdata.length"
-                  >
-                  <button class="btn btndelete" (click)="exportToPDF()"> <i class="material-icons icon-red">picture_as_pdf</i> PDF</button>
-                  <button class="btn btndelete" (click)="exportToExcel()"><i class="material-icons icon-green">insert_drive_file</i> Excel</button>
+                  ><p class="total-count">Total Rows: {{ filteredreports.length }}</p>
+                 
+                  <button class="btn btn-sm" (click)="exportToPDF()"> <i class="material-icons icon-red">picture_as_pdf</i> </button>
+                  <button class="btn btn-sm " (click)="exportToExcel()"><i class="material-icons icon-green">insert_drive_file</i> </button>
+                     
                               
                     <div>
                         <thead>
@@ -77,8 +79,8 @@
                               <td>{{ report.paymentNo }}</td>
                               <td>{{ report.amount | number: '1.2-2' }}</td>
                               <td>{{ report.transType === 'Transfer' ? 'Account to Account ' + report.transType : report.transType }}</td>
-<td><button class="btn btn-sm btnex" (click)="print(report)" [ngStyle]="{'font-size': '10px', 'padding': '4px 6px'}">
-  <i class="material-icons icon-blue">print</i> print
+<td><button class="btn btn-sm material-icons1" (click)="print(report)" [ngStyle]="{'font-size': '10px', 'padding': '4px 6px'}">
+  <i class="material-icons ">print</i> print
 </button>
              </td>
 

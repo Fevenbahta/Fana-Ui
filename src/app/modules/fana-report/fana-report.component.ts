@@ -6,7 +6,7 @@ import { AuthService } from 'app/service/auth.service';
 import { ReportService } from 'app/service/report.service';
 import { TransactionService } from 'app/service/transaction.service';
 import * as ExcelJS from 'exceljs';
-
+import { NgxUiLoaderService } from 'ngx-ui-loader';
 @Component({
   selector: 'app-fana-report',
   templateUrl: './fana-report.component.html',
@@ -14,7 +14,7 @@ import * as ExcelJS from 'exceljs';
 })
 export class FanaReportComponent {
 
-  constructor(
+  constructor(   private ngxService: NgxUiLoaderService,
     private transactionService: TransactionService,   
   
      private dialog: MatDialog,
@@ -71,7 +71,7 @@ depositorPhone: "",
       const lastlist = this.reportdata.pop();
       this.reportdata.unshift(lastlist);
       this.filteredreports = this.reportdata.slice(startIndex, endIndex);
-      console.log("con",this.reportdata)
+
       
     });
   
@@ -80,10 +80,26 @@ depositorPhone: "",
 startDate: string;
 endDate: string;
 generateReport() {
+  this.ngxService.start();
+  // Check if both startDate and endDate are provided, if not return early with an alert
+  if (!this.startDate || !this.endDate) {
+    alert('Please provide both start date and end date for the search.');
+    this.ngxService.stop();
+    return; // Stop further execution if dates are not provided
+  }
+ const start = new Date(this.startDate);
+  const end = new Date(this.endDate);
+
+  // Check if the startDate is before the endDate
+  if (start > end) {
+    alert('Start date cannot be later than end date.');
+    this.ngxService.stop();
+    return;
+  }
   if (this.startDate && this.endDate) {
     const start = new Date(this.startDate);
     const end = new Date(this.endDate);
-
+    this.ngxService.stop();
     // Adjust start and end to include full day's range
     end.setDate(end.getDate() + 1);
 
@@ -111,10 +127,10 @@ private updateFilteredreports() {
   this.filteredreports = this.reportdata.slice(startIndex, endIndex);
 }
 buttons = [
-  { label: 'Statment Report', route: '/FanaReport', role: ['0078','0041', '0048', '0049','0017'] },
-    { label: 'Branch Report', route: '/BranchReport', role: ['0041', '0048', '0049'] },
+     { label: 'Branch Report', route: '/BranchReport', role: ['0041', '0048', '0049'] },
     { label: 'General Report', route: '/GeneralReport', role: ['0078','0017'] },
-
+   { label: 'Statment Report', route: '/FanaReport', role: ['0078','0041', '0048', '0049','0017'] },
+  
   
 ];
 
@@ -249,8 +265,7 @@ exportToExcel() {
 exportToPDF() {
   // Ensure filteredreports has data
   if (this.filteredreports.length === 0) {
-    console.log('No data to export.');
-    return;
+       return;
   }
 
   // Construct HTML content for PDF
@@ -265,12 +280,24 @@ exportToPDF() {
           font-size: 20px;
           font-weight: bold;
           margin-bottom: 10px;
+               margin-top: 10px;
         }
-         .container {
+        .container {
           margin-left: 300px;
         }
-             .container2 {
+        .container2 {
           margin-left: 320px;
+        }
+        .header {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          margin-bottom: 10px;
+        }
+        .header img {
+          width: 50px;
+          height: auto;
+          margin-right: 10px;
         }
         table {
           width: 100%;
@@ -285,14 +312,16 @@ exportToPDF() {
         th {
           background-color: #f2f2f2;
         }
-     
       </style>
     </head>
     <body>
-     <div class="title container">LION INTERNATIONAL BANK S.C </div>
-      <div class="title container2 ">Transaction Report</div>
+      <div class="header">
+        <img src="/assets/img/logolib.png"alt="LION INTERNATIONAL BANK S.C Logo">
+        <div class="title">LION INTERNATIONAL BANK S.C</div>
+      </div>
+      <div class="title container2">Transaction Report</div>
       <div>Account Name: Fana Youth Saving And Credit Limited Cooperative</div>
-      <div>Accont Number:00310095104-87</div>
+      <div>Account Number: 00310095104-87</div>
       <div>BRANCH: MEKELE MARKET</div>
       <div>Date covered: From ${this.startDate} To: ${this.endDate}</div>
       <table>
@@ -338,6 +367,7 @@ exportToPDF() {
   // Convert HTML to PDF
   this.convertHtmlToPdf(content);
 }
+
 
 convertHtmlToPdf(htmlContent) {
   const filename = 'transaction_report.pdf';

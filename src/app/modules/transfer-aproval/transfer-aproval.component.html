@@ -12,7 +12,7 @@
                         <div class="card-header mt-5 cardhead">
                             
                            
-                            <p class="card-header cardhead" >Approve Request </p>      <div>       
+                            <p class=" " >Approve Request </p>      <div>       
                              
           <button *ngIf="this.cancelMessage" class=" col-md-2 alert alert-success  mt-3 ml-5">
             Cancled!
@@ -43,10 +43,7 @@
       </thead>
       <tbody>
                   
-        <div class="loading-overlay" *ngIf="isSearching; else loadedData ">
-
-          <p>Loading......</p>
-        </div>
+  
         <mat-error *ngIf="networkError" class="wide-error">
           {{ networkError }}
         </mat-error>
@@ -64,22 +61,19 @@
           <td>{{ tr.dDepositeName }}</td>
           <td>{{ tr.depositorPhone }}</td>
           <td>{{ tr.amount }}</td>
-            <td>
-                                       
+          <td>  <div class="btn btn-sm  material-icons1 mt-1 " [ngStyle]="{'font-size': '10px', 'padding': '2px 4px'}"
+            (click)="approveTransfer(tr.id,tr)" >
+            <i class="material-icons">check_circle</i>  Approve</div> </td>
+          
 
-                        <button class="btn btn-sm  btn-success mt-1 " [ngStyle]="{'font-size': '12px', 'padding': '4px 8px'}"
-                        (click)="approveTransfer(tr.id,tr)" >
-                        <i class="material-icons icon-green">check</i> </button> 
-          </td> 
-          <td>
-                                       
 
-            <button class="btn btn-sm btn-danger" [ngStyle]="{'font-size': '12px', 'padding': '4px 8px'}"
-            (click)="cancelTransfer(tr.id,tr)" >
-            <i class="material-icons icon-red">cancel</i></button> 
-</td> 
+<td> <div class="btn btn-sm material-icons2" [ngStyle]="{'font-size': '10px', 'padding': '2px 4px'}"
+(click)="cancelTransfer(tr.id,tr)" >
+<i class="material-icons">cancel</i>  Cancel</div> </td>                             
+
+     
                          
-        </tr>      <ng-template #loadedData></ng-template>
+        </tr>      
       </tbody>
 
   </table>

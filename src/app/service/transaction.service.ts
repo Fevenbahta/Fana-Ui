@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpEvent, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable, catchError } from 'rxjs';
 import { ApiUrlService } from './apiurl.service';
-import {  Transfer, UserData, ValidAccount } from 'app/models/data.model';
+import {  FanaTransactions, Transfer, UserData, ValidAccount } from 'app/models/data.model';
 
 
 @Injectable({
@@ -22,6 +22,9 @@ export class TransactionService {
 
   getAllTransactions(): Observable<Transfer[]> {
     return this.http.get<Transfer[]>(this.apiUrlService.apiUrl + 'Transaction');
+  }
+  getAllFanaTransactions(): Observable<FanaTransactions[]> {
+    return this.http.get<FanaTransactions[]>(this.apiUrlService.apiUrl + 'Transaction/GetFanaTransaction');
   }
   getTransaction(id:number): Observable<Transfer> {
      return this.http.get<Transfer>(this.apiUrlService.apiUrl + 'Transaction/'+id);
@@ -85,5 +88,9 @@ CheckAccountBalance(branch: string, account: string, amount: number): Observable
 
   // Make GET request to API endpoint
   return this.http.get<any>(`${this.apiUrlService.apiUrl}Transaction/CheckAccountBalance`, { params: params });
+}
+getStatementsByDateRange(startDate: string, endDate: string): Observable<any> {
+  const params = { startDate, endDate };
+  return this.http.get(`${this.apiUrlService.apiUrl}Transaction/statements/date-range`, { params });
 }
 }

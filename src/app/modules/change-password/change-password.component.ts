@@ -20,9 +20,6 @@ export class ChangePasswordComponent {
   incorrect:boolean=false
   constructor(private authGuardService: AuthGuardService, private authService: AuthService, private userService :LoginService) {}
   buttons = [
-    { label: 'It Equipment', route: '/user/:id/It' },
-    { label: 'Office Equipment', route: '/user/:id/Office' },
-    { label: 'Furniture Equipment', route: '/user/:id/Furniture' },
    
   ];
 
@@ -55,13 +52,10 @@ export class ChangePasswordComponent {
     user.password=this.newPassword
     if( this.newPassword == this.confirmPassword ){
     
-      console.log('USER', user);
-      console.log('userid', userid);
-      console.log('userpas', userpas);
-      console.log('this.oldPassword', this.oldPassword);
-         this.userService.updateUser( userid,userpas,this.oldPassword,user ).subscribe(
+
+         this.userService.updateUser( userid,userpas.toString(),this.oldPassword,user ).subscribe(
           response => {
-            console.log('Password reset successful:', response);
+   
            this. changed= true;
             setTimeout(() => {
               this.changed = false;

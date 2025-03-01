@@ -61,7 +61,7 @@ export class ReportComponent {
     const lastlist = this.reportdata.pop();
     this.reportdata.unshift(lastlist);
     this.filteredreports = this.reportdata.slice(startIndex, endIndex);
-    console.log("con",this.reportdata)
+  
     
   });
 

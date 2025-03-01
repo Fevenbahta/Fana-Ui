@@ -33,16 +33,20 @@ export class LoginService {
     const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) };
     return this.http.put<Login>(this.apiUrlService.apiUrl  + 'Login/Admin/'+Id, userDetails, httpOptions);
   }
-  updateUser(id: number, oldPassword: String, oldInput: String, userDetails: Login): Observable<Login> {
-    // Construct the URL with query parameters
-    const url = `${this.apiUrlService.apiUrl}Login/${id}?old=${oldPassword}&oldInput=${oldInput}`;
+
+
+
+  updateUser(id: number, oldPassword: string, oldInput: string, userDetails: Login): Observable<Login> {
+    // Construct the URL with encoded query parameters
+    const url = `${this.apiUrlService.apiUrl}Login/${id}?old=${encodeURIComponent(oldPassword)}&oldInput=${encodeURIComponent(oldInput)}`;
     
     const httpOptions = {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' })
     };
 
     return this.http.put<Login>(url, userDetails, httpOptions);
-  }
+}
+
   deleteUser(Id: number): Observable<string> {
     const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) };
     return this.http.delete<string>(this.apiUrlService.apiUrl  + 'Login/' + Id, httpOptions);

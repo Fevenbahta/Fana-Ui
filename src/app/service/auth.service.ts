@@ -48,7 +48,7 @@ export class AuthService {
   login(username: string, password: string) {
     this.loginService.getAll().pipe(
       switchMap(userExists => {
-        const userExistsInMainList = userExists.find(t => t.userName === username);
+        const userExistsInMainList = userExists.find(t => t.userName == username);
         if (!userExistsInMainList)
            {
           // User not found in the main list, attempt to fetch user details from another database
@@ -65,13 +65,11 @@ export class AuthService {
               this.newUser.password = '123456';
               this.newUser.userName = username;
 
-              console.log("New User Data:", this.newUser);
 
               // Register user with suspended status
               return this.loginService.register(this.newUser).pipe(
                 switchMap(() => {
-                  console.log("User registered with suspended status");
-                  this.suspended = true;
+                          this.suspended = true;
                   setTimeout(() => this.resetStatusFlags(), 60000);
            // Reset after 1 minute
 this.loginService.getAll()
@@ -80,8 +78,7 @@ this.loginService.getAll()
       userExists=t
          },
     error(response) {
-      console.log(response);
-    },
+       },
   });
  
            
@@ -140,17 +137,28 @@ this.loginService.getAll()
         this.branch = response.userData.branchCode;
         this.password = response.userData.password;
         this.Role = response.userData.role;
-        console.log('rolesss', this.Role);
-        
+
+        console.error('Login failed:', this.name,this.id, this.password);
+  
         if (response.userData.status == 'suspended') {
           this.suspended = true;
-          console.log('User is suspended');
+        
           // Handle suspended user state
         } else {
           if (this.Role === 'Admin') {
             this.tra = true;
             this.isAuthenticated = true;
             this.router.navigate(['/Admin']);
+          }else if(this.Role==='FanaAdmin'){
+            this.tra = true;
+            this.isAuthenticated = true;
+            this.router.navigate(['/', 'FanaCustom']);
+     
+          }
+          else if (this.Role === 'Finance' ) {
+            this.tra = true;
+            this.isAuthenticated = true;
+            this.router.navigate(['/', 'RtgsAllReport']);
           }
            else {
             this.getUserData().subscribe({
@@ -158,18 +166,20 @@ this.loginService.getAll()
                 if (tra) {
                   this.tra = true;
                   this.isAuthenticated = true;
-                  console.log('Role:', this.Role);
+        
                   if (this.Role === '0052'||this.Role === '0073') {
-                    console.log('Navigating to Request');
+              
                     this.router.navigate(['/', 'Request']);
                   } else if (this.Role === '0048' || this.Role === '0041' || this.Role === '0049') {
-                    console.log('Navigating to Approval');
+                
                     this.router.navigate(['/', 'Approval']);
                   }  else if (this.Role === '0078'|| this.Role === '0017' ) {
-                    console.log('Navigating to FanaReport');
+                
                     this.router.navigate(['/', 'FanaReport']);
-                  }else {
-                    console.log('Unknown role');
+                  }
+                  else{
+                    
+             
                     this.roleincorrect = true;
                   }
                   this.startTokenExpirationTimer();
@@ -188,12 +198,10 @@ this.loginService.getAll()
                       response.userData.branchCode=userDetail.branch;
                       response.userData.role=userDetail.role;
                       response.userData.branch=userDetail.brancH_NAME;
-                      response.userData.status="Suspended";
+                 
                       this.loginService.updateAdminUser(response.userData,response.userData.id).subscribe({
                         next: (updatedUserDetail) => {
-                          this.suspended = true;
-                          setTimeout(() => this.resetStatusFlags(), 60000); // Reset after 1 minute
-                      
+                           this.login(response.userData.userName,response.userData.password.toString());
                         },
                         error: (updateError) => {
                           console.error('Error updating user detail:', updateError);
@@ -230,7 +238,7 @@ this.loginService.getAll()
     
     this.failedAttempts[username]++;
     setTimeout(() => this.resetStatusFlags(), 1000); // Reset after 1 minute
-    console.log(`Failed attempts for ${username}:`, this.failedAttempts[username]);
+
 
     if (this.failedAttempts[username] >= this.MAX_FAILED_ATTEMPTS) {
       this.accountLocked[username] = true;
@@ -267,7 +275,7 @@ this.loginService.getAll()
     const role = this.getrole();
     const branch = this.getbranch();
     const user = this.getuser();
-    console.log('r,b,u',role,branch,user);
+
     return this.transactionService.getUserDetails(branch, user, role);
   }
 
@@ -329,7 +337,7 @@ this.loginService.getAll()
 
     const expirationTime = payload.exp * 1000; // Convert expiration time to milliseconds
     const currentTime = Date.now();
-    const adjustedExpirationTime = currentTime + (120 * 60 * 1000); // 120 minutes from now
+    const adjustedExpirationTime = currentTime + (60 * 60 * 1000); // 120 minutes from now
     const timeUntilExpiration = Math.max(adjustedExpirationTime - currentTime, expirationTime - currentTime);
     
     timer(timeUntilExpiration)

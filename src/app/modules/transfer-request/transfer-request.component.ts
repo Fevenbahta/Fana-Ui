@@ -10,6 +10,8 @@ import { TransactionService } from 'app/service/transaction.service';
 import { MatSnackBar } from '@angular/material/snack-bar'
 import { DOCUMENT } from '@angular/common';
 import { Observable } from 'rxjs';
+import { NgxUiLoaderService } from 'ngx-ui-loader';
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-transfer-request',
   templateUrl: './transfer-request.component.html',
@@ -18,6 +20,8 @@ import { Observable } from 'rxjs';
 export class TransferRequestComponent {
 
   constructor(
+    private toastr: ToastrService,
+    private ngxService: NgxUiLoaderService,
     private formBuilder: FormBuilder, 
     private router: Router,
     private transactionService: TransactionService,
@@ -91,24 +95,42 @@ inSufficentBalance:boolean=false;
   ngOnInit(): void {
   
   }
-  private showSuccessMessage(message: string, isError: boolean = false): void {
-    const panelClass = isError ? 'error-snackbar' : 'success-snackbar';
-    const snackBarRef = this.snackBar.open(message, 'Close', {
-      duration: 3000,
-      horizontalPosition: 'end',
-      verticalPosition: 'top'
-    });
+  // private showSuccessMessage(message: string, isError: boolean = false): void {
+  //   const panelClass = isError ? 'error-snackbar' : 'success-snackbar';
+  //   const snackBarRef = this.snackBar.open(message, 'Close', {
+  //     duration: 3000,
+  //     horizontalPosition: 'end',
+  //     verticalPosition: 'top'
+  //   });
 
-    snackBarRef.afterOpened().subscribe(() => {
-      const snackBarElement = this.document.querySelector('.mat-snack-bar-container');
-      if (snackBarElement) {
-            this.renderer.setStyle(snackBarElement, 'background-color', isError ? 'red' : 'green');
-        this.renderer.setStyle(snackBarElement, 'color', 'white');
+  //   snackBarRef.afterOpened().subscribe(() => {
+  //     const snackBarElement = this.document.querySelector('.mat-snack-bar-container');
+  //     if (snackBarElement) {
+  //           this.renderer.setStyle(snackBarElement, 'background-color', isError ? 'red' : 'green');
+  //       this.renderer.setStyle(snackBarElement, 'color', 'white');
     
-          } else {
-        console.error('Snackbar element not found');
-      }
-    });
+  //         } else {
+  //       console.error('Snackbar element not found');
+  //     }
+  //   });
+  // }
+
+  showSuccessMessage(message: string, isError: boolean = false): void {
+    if (isError) {
+
+      this.toastr.error(message, 'Error', {
+        timeOut: 1000,
+        positionClass: 'toast-top-right',
+        closeButton: true
+      });
+    } else {
+  
+      this.toastr.success(message, 'Success', {
+        timeOut: 1000,
+        positionClass: 'toast-top-right',
+        closeButton: true
+      });
+    }
   }
   markFormGroupTouched(formGroup: FormGroup) {
     Object.keys(formGroup.controls).forEach(field => {
@@ -117,31 +139,34 @@ inSufficentBalance:boolean=false;
     });
   }
   onMethodChange() {
-    console.log('Selected method changed:', this.selectedMethod);
+
   }
 
   checkAccount() {
-    
+    this.ngxService.start();
     const dAccountNoControl = this.transferRequestForm.get('dAccountNo');
     if (dAccountNoControl.invalid) {
       dAccountNoControl.markAsTouched();
+      this.ngxService.stop();
       return;
     }
     this.isSearching=true;
     this.transactionService.getTransactionUserByAccount(this.transferRequestForm.value.dAccountNo).subscribe(response => {
       if (response) {
-        console.log("true", response);
+        this.showSuccessMessage("Successful!")
+        this.ngxService.stop();
         this.isSearching=false;
         this.AccountBranch=response.branch
         this.transferRequestForm.patchValue({
           dDepositeName: response.fulL_NAME.trim(),
           depositorPhone: response.telephonenumber,
           cAccoutBranch: response.branch
-        }); console.log("cAccoutBranch", response.branch);
+        }); 
         this.accountChecked = true;
       } else {
+        this.showSuccessMessage("Try Again!",true)
         this.accountChecked = false;
-
+        this.ngxService.stop();
         this.isSearching=false;
         this.invalid=true;
         setTimeout(() => {
@@ -149,7 +174,10 @@ inSufficentBalance:boolean=false;
         }, 2000);
       }
     }, error => {
+      this.ngxService.stop();
       console.error('Error checking account:', error);
+      this.showSuccessMessage("Try Again!",true)
+    
       this.accountChecked = false;
       alert('Error checking account details');
       this.isSearching=false;
@@ -170,11 +198,12 @@ inSufficentBalance:boolean=false;
     });
   }
   addRequest() {
-  
+    this.ngxService.start();
     let requestForm;
     if (this.selectedMethod === 'Transfer') {
       if (this.transferRequestForm.invalid) {
-        this.markFormGroupTouched(this.transferRequestForm);
+        this.ngxService.stop();
+         this.markFormGroupTouched(this.transferRequestForm);
         return;
       }
      
@@ -203,10 +232,11 @@ inSufficentBalance:boolean=false;
           } else {
             // Handle insufficient balance scenario
             if (!this.accountChecked2) {
-              return;
+              this.ngxService.stop(); return;
        }      }
         },
         (error) => {
+          this.ngxService.stop();
           console.error('Error checking balance:', error);
         }
       );
@@ -237,13 +267,13 @@ inSufficentBalance:boolean=false;
   }
 
 sumitRequest(requestForm){
-  console.log("requestForm.value",requestForm.value);
+
     this.enableAllControls(this.cashTransferRequestForm);
     this.enableAllControls(this.transferRequestForm);
 
     this.transactionService.addTransaction(requestForm.value).subscribe({
       next: () => {
-     
+        this.ngxService.stop();
         this.showSuccessMessage('Successfully Added!');
       
         this.transferRequestForm = this.formBuilder.group({
@@ -295,7 +325,9 @@ sumitRequest(requestForm){
         });
       },
       error: (response) => {
-        console.log(response);
+        this.ngxService.stop();
+        this.showSuccessMessage('Error sending request!',true);
+      
       },
     });
 }
@@ -303,16 +335,19 @@ sumitRequest(requestForm){
     return new Observable<boolean>((observer) => {
       this.isSearching = true;
       this.accountChecked2 = false;
+      this.ngxService.start();
       this.transactionService.CheckAccountBalance(branch, account, amount).subscribe(
         (response) => {
           this.isSearching = false;
-          console.log('Balance check successful', response);
+
           if (response.success) {
             this.accountChecked2 = true;
+            this.ngxService.stop();
             observer.next(true); // Emit true for success
           } else {
+            this.ngxService.stop();
             this.accountChecked2 = false;
-            console.log('Balance check failed');
+            this.showSuccessMessage('InSufficent Balance!',true);
             this.inSufficentBalance = true;
             setTimeout(() => {
               this.inSufficentBalance = false;
@@ -322,9 +357,10 @@ sumitRequest(requestForm){
           observer.complete();
         },
         (error) => {
-          console.error('Error occurred while checking balance:', error);
-          observer.error('Error checking balance'); // Emit error response
-        }
+          this.ngxService.stop();
+          this.showSuccessMessage('Error checking balance!',true);
+          console.error('Error checking balance', error);
+               }
       );
     });
   }

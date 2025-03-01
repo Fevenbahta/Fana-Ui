@@ -5,7 +5,8 @@ import { AuthService } from 'app/service/auth.service';
 import { TransactionService } from 'app/service/transaction.service';
 import { MatSnackBar } from '@angular/material/snack-bar'
 import { DOCUMENT } from '@angular/common';
-
+import { NgxUiLoaderService } from 'ngx-ui-loader';
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-transfer-aproval',
   templateUrl: './transfer-aproval.component.html',
@@ -24,11 +25,14 @@ export class TransferAprovalComponent {
 
 
   constructor(
+     private toastr: ToastrService,
+     
     private authService: AuthService,
     private router: Router,
     private transactionService: TransactionService,
     private snackBar: MatSnackBar,
     private renderer: Renderer2,
+    private ngxService: NgxUiLoaderService,
     @Inject(DOCUMENT) private document: Document
   ) {}
 
@@ -44,6 +48,7 @@ export class TransferAprovalComponent {
   }
 
   private loadTransfers(): void {
+
     this.transactionService.getAllTransactions().subscribe({
       next: (t) => {
         const branchCode = this.padBranchNumber(this.authService.getbranch());
@@ -60,55 +65,82 @@ export class TransferAprovalComponent {
     return branch.padStart(5, '0');
   }
 
-  private showSuccessMessage(message: string, isError: boolean = false): void {
-    const panelClass = isError ? 'error-snackbar' : 'success-snackbar';
-    const snackBarRef = this.snackBar.open(message, 'Close', {
-      duration: 3000,
-      horizontalPosition: 'end',
-      verticalPosition: 'top'
-    });
+  showSuccessMessage(message: string, isError: boolean = false): void {
+    if (isError) {
 
-    snackBarRef.afterOpened().subscribe(() => {
-      const snackBarElement = this.document.querySelector('.mat-snack-bar-container');
-      if (snackBarElement) {
-            this.renderer.setStyle(snackBarElement, 'background-color', isError ? 'red' : 'green');
-        this.renderer.setStyle(snackBarElement, 'color', 'white');
-    
-          } else {
-        console.error('Snackbar element not found');
-      }
-    });
+      this.toastr.error(message, 'Error', {
+        timeOut: 1000,
+        positionClass: 'toast-top-right',
+        closeButton: true
+      });
+    } else {
+  
+      this.toastr.success(message, 'Success', {
+        timeOut: 1000,
+        positionClass: 'toast-top-right',
+        closeButton: true
+      });
+    }
   }
   
 
   approveTransfer(id: number, request: Transfer): void {
-
+   this.ngxService.start();
     if (request.paymentNo.startsWith('FANA') || request.status !="Pending") {
-     
+      this.ngxService.stop();
          console.log()
       return;
     }
     request.status = 'Approved';
     request.approvedBy = this.authService.getuser();
     this.isSearching = true;    
-    console.log("transfer",request)
+
     this.transactionService.updateTransaction(request, id).subscribe({
       next: (response) => {
-        this.approvalSlips = [request];
-        console.log("this.approvalSlips",this.approvalSlips,);
-        this.showSuccessMessage('Successfully Approved!');
-        this.loadTransfers();
-        this.isSearching = false;
+        this.ngxService.stop();
+        // Fetch the latest transaction details
+        this.transactionService.getTransaction(id).subscribe({
+          next: (transactionDetails) => {
+            // Assign the fetched transaction to approvalSlips for slip generation
+            this.approvalSlips = [transactionDetails];
+    
+            // Show success message
+            this.showSuccessMessage('Successfully Approved!');
+            
+            // Reload the transfers list
+            this.loadTransfers();
+    
+            // Reset the loading state
+            this.isSearching = false;
+          },
+          error: (fetchError) => {
+            console.error('Error fetching transaction details:', fetchError);
+            this.ngxService.stop();
+            // Show a message for failed slip data fetching
+            this.networkError = 'Failed to fetch updated transaction details.';
+            setTimeout(() => (this.networkError = ""), 3000);
+            this.showSuccessMessage('Failed to update transaction !',true);
+     
+            this.isSearching = false;
+          },
+        });
       },
       error: (error) => {
         console.error('Error saving data:', error);
-        this.isSearching = false;
+        this.ngxService.stop();
+        // Show the extracted error message
         this.networkError = this.extractErrorMessage(error.error);
-  
-         setTimeout(() => this.networkError="", 3000); // Reset after 1 minute
-                      
-      }
+        setTimeout(() => (this.networkError = ""), 3000);
+        this.showSuccessMessage('Error saving data!',true);
+     
+        // Reset the loading state
+        this.isSearching = false;
+      },
     });
+    
+
+
+    
   }
   private extractErrorMessage(fullErrorMessage: string): string {
     const regex = /SOAP request failed:\s*(DESA NAUT\s*-\s*)?(.*?)(\r?\n|$)/;
@@ -129,17 +161,21 @@ export class TransferAprovalComponent {
   }
   
   cancelTransfer(id: number, request: Transfer): void {
+    this.ngxService.start();
     request.status = 'Cancled';
     request.approvedBy = this.authService.getuser();
     this.isSearching = true;
     this.transactionService.updateTransaction(request, id).subscribe({
       next: (response) => {
+        this.ngxService.stop();
         this.showSuccessMessage('Successfully Cancelled!');
         this.loadTransfers();
         this.isSearching = false;
         console.error('request:', request);
       },
       error: (error) => {
+        this.ngxService.stop();
+        this.showSuccessMessage('Error saving data!',true);
         console.error('Error saving data:', error);
         this.isSearching = false;
       }

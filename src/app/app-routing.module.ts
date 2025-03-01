@@ -15,6 +15,14 @@ import { ReportAuthGuardService } from './service/report-auth-guard.service';
 import { FanaReportComponent } from './modules/fana-report/fana-report.component';
 import { BranchreportComponent } from './modules/branchreport/branchreport.component';
 import { GeneralReportComponent } from './modules/general-report/general-report.component';
+import { IFRSReportComponent } from './modules/ifrs-report/ifrs-report.component';
+import { IFRSRequestComponent } from './modules/ifrs-request/ifrs-request.component';
+import { IFRSApprovalComponent } from './modules/ifrs-approval/ifrs-approval.component';
+import { ReceiptComponent } from './modules/receipt/receipt.component';
+import { IFRSAllbranchReportComponent } from './modules/ifrs-allbranch-report/ifrs-allbranch-report.component';
+import { FanaCustomViewComponent } from './modules/fana-custom-view/fana-custom-view.component';
+import { CustomFanaAuthGuardService } from './service/CustomFana-auth-guard.service ';
+import { FanaAccountStatementComponent } from './modules/fana-account-statement/fana-account-statement.component';
  // Create this component for 404 page
 
 const routes: Routes = [
@@ -37,6 +45,16 @@ const routes: Routes = [
         canActivate: [AdminAuthGuardSecondService]
       },
       {
+        path: 'IfrsRequest',
+        component: IFRSRequestComponent,
+        canActivate: [AdminAuthGuardService]
+      },
+      {
+        path: 'IfrsApproval',
+        component: IFRSApprovalComponent,
+        canActivate: [AdminAuthGuardSecondService]
+      },
+      {
         path: 'Admin',
         component: AdminComponent,
         canActivate: [AdminAuthAdminGuardService],
@@ -50,11 +68,38 @@ const routes: Routes = [
         path: 'GeneralReport',
         component: GeneralReportComponent,
         canActivate: [ReportAuthGuardService],
-      },
+      },  
+ 
       {
         path: 'BranchReport',
         component: BranchreportComponent,
         canActivate: [AdminAuthGuardSecondService],
+      },
+      
+      {
+        path: 'RtgsReport',
+        component: IFRSReportComponent,
+        canActivate: [AdminAuthGuardSecondService],
+      },
+      {
+        path: 'RtgsAllReport',
+        component: IFRSAllbranchReportComponent,
+        canActivate: [ReportAuthGuardService],
+      },
+      {
+        path: 'FanaCustom',
+        component: FanaCustomViewComponent,
+        canActivate: [CustomFanaAuthGuardService],
+      },
+      {
+        path: 'FanaStatment',
+        component: FanaAccountStatementComponent,
+        canActivate: [CustomFanaAuthGuardService],
+      },
+      {
+        path: 'Receipt',
+        component: ReceiptComponent,
+        canActivate: [AdminAuthGuardService],
       },
     ]
   },

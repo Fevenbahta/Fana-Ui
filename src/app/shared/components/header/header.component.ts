@@ -1,4 +1,5 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Router } from '@angular/router';
 import { AuthService } from 'app/service/auth.service';
 
 @Component({
@@ -11,12 +12,12 @@ export class HeaderComponent implements OnInit {
   @Output() toggleSideBarForMe: EventEmitter<any> = new EventEmitter();
 
 
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService, private router :Router) { }
   display:boolean=false
   ngOnInit() { 
     
     if (this.authService.Role) {
-      console.log("user admin") 
+      
        this.display=true; // Allow navigation to /user/:id if user is authenticated
     }
   }
@@ -27,4 +28,8 @@ export class HeaderComponent implements OnInit {
   logout(){
     this.authService.logout()
   }
+  changePassword(): void {
+    this.router.navigate(['/Change']);  // Navigate to the /Change route
+  }
+
 }

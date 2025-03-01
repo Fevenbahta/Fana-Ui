@@ -10,27 +10,29 @@
            
                   
             </a>
-        </div>
-        <div class="sidebar-wrapper">
+        </div> 
         
-            <ul class="nav">
+        <div class="nav">
                 <p class="ml-3 cardbody user">welcome {{ user }}</p>               
          
 
-                <li routerLinkActive="nav-item" *ngFor="let menuItem of menuItems" class="{{menuItem.class}} ">
-                    <a class="nav-link" [routerLink]="[menuItem.path]">
+                <div routerLinkActive="navitem" *ngFor="let menuItem of menuItems">
+                    <a class="navlink" [routerLink]="[menuItem.path]">
                         <i class="material-icons">{{menuItem.icon}}</i>
                         <p>{{menuItem.title}}</p>
                     </a>
-                </li>
+                </div>
                 
-                <li routerLinkActive="nav-item" >
-                    <a class="nav-link"  routerLink="/Change" *ngIf="display">
+                <!-- <li routerLinkActive="navitem" >
+                    <a class="navlink"  routerLink="/Change" *ngIf="display">
                    
                     <p >Change Password</p>
           
-                </a></li>
-            </ul>
+                </a></li> -->
+            </div>
+        <div class="sidebar-wrapper">
+        
+          
         </div>
     </div>
 </div>

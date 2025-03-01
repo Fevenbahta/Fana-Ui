@@ -5,6 +5,7 @@ import { AuthService } from 'app/service/auth.service';
 import { ReportService } from 'app/service/report.service';
 import { TransactionService } from 'app/service/transaction.service';
 import * as ExcelJS from 'exceljs';
+import { NgxUiLoaderService } from 'ngx-ui-loader';
 @Component({
   selector: 'app-general-report',
   templateUrl: './general-report.component.html',
@@ -14,7 +15,7 @@ export class GeneralReportComponent {
 
   constructor(
     private transactionService: TransactionService,   
-
+    private ngxService: NgxUiLoaderService,
      private dialog: MatDialog,
       private authService: AuthService,) { }
 
@@ -60,6 +61,7 @@ depositorPhone: "",
 
 
   onMultipleSearch(): void {
+    this.ngxService.start();
     this.filteredreports = this.reportdata.filter(transaction => {
       // Convert transaction date to a Date object
       const transactionDate = new Date(transaction.transDate);
@@ -78,12 +80,12 @@ depositorPhone: "",
       const withinDateRange = (!start || strippedTransactionDate >= start) && (!end || strippedTransactionDate <= end);
   
       // Perform filtering based on all search terms
-      const passesBranchFilter = this.branchSearchTerm === '' || transaction.cAccountBranch.includes(this.branchSearchTerm);
+      const passesBranchFilter = this.branchSearchTerm === '' || transaction.branch.includes(this.branchSearchTerm);
       const passesAccountFilter = this.accountSearchTerm === '' || transaction.dAccountNo.includes(this.accountSearchTerm);
       const passesTransferFilter = this.transferSearchTerm === '' ||  transaction.transType.toLowerCase().includes(this.transferSearchTerm.toLowerCase());
       
       const passesStatusFilter = this.selectedStatus === '' || transaction.status === this.selectedStatus; // Adjust based on your data structure
-  
+      this.ngxService.stop();
       // Return true if all filters pass
       return withinDateRange && passesBranchFilter && passesAccountFilter && passesTransferFilter && passesStatusFilter;
     });
@@ -102,7 +104,7 @@ depositorPhone: "",
       const lastlist = this.reportdata.pop();
       this.reportdata.unshift(lastlist);
       this.filteredreports = this.reportdata.slice(startIndex, endIndex);
-      console.log("con",this.reportdata)
+
       
     });
   
@@ -110,10 +112,11 @@ depositorPhone: "",
 } 
 
 generateReport() {
+  this.ngxService.start();
   if (this.startDate && this.endDate) {
     const start = new Date(this.startDate);
     const end = new Date(this.endDate);
-
+    this.ngxService.stop();
     // Adjust start and end to include full day's range
     end.setDate(end.getDate() + 1);
 
@@ -140,10 +143,10 @@ private updateFilteredreports() {
 
   this.filteredreports = this.reportdata.slice(startIndex, endIndex);
 }
- buttons = [
+ buttons = [ { label: 'General Report', route: '/GeneralReport', role: ['0078','0017'] },
+
   { label: 'Statment Report', route: '/FanaReport', role: ['0078','0017','0041', '0048', '0049'] },
-  { label: 'General Report', route: '/GeneralReport', role: ['0078','0017'] },
-];
+ ];
 
 filterButtonsByRole(): { label: string; route: string }[] {
   const userRoles = this.authService.getrole();
@@ -171,12 +174,18 @@ exportToExcel() {
   const headers = [
     { header: 'No', key: 'no', width: 10, alignment: { horizontal: 'left' as const } },
     { header: 'Transaction Date', key: 'transDate', width: 20, alignment: { horizontal: 'left' as const } },
-    { header: 'Depositor Full Name', key: 'dDepositeName', width: 25, alignment: { horizontal: 'left' as const } },
+    { header: 'Inputing Branch', key: 'inputingBranch', width: 25, alignment: { horizontal: 'left' as const } },
+
+    { header: 'Debitor Branch', key: 'branch', width: 25, alignment: { horizontal: 'left' as const } },
+    { header: 'Debitor Account', key: 'dAccount', width: 25, alignment: { horizontal: 'left' as const } },
+ 
     { header: 'Fana Member Id', key: 'memberId', width: 15, alignment: { horizontal: 'left' as const } },
     { header: 'Depositor Phone Number', key: 'depositorPhone', width: 20, alignment: { horizontal: 'left' as const } },
     { header: 'Lib Transaction No', key: 'referenceNo', width: 15, alignment: { horizontal: 'left' as const } },
     { header: 'Amount', key: 'amount', width: 15, alignment: { horizontal: 'left' as const } },
     { header: 'Transaction Type', key: 'transType', width: 20, alignment: { horizontal: 'left' as const } },
+    { header: 'Status', key: 'status', width: 20, alignment: { horizontal: 'left' as const } },
+ 
   ];
 
   // Create a new workbook
@@ -243,6 +252,10 @@ exportToExcel() {
     const rowData = {
       no: index + 1, // Adjust index for 1-based numbering
       transDate: item.transDate,
+      dAccount: item.dAccountNo,
+      branch: item.cAccountBranch,
+      inputingBranch: item.branch,
+      status:item.status,
       dDepositeName: item.dDepositeName,
       memberId: item.memberId,
       depositorPhone: item.depositorPhone,
@@ -281,8 +294,7 @@ exportToExcel() {
 exportToPDF() {
   // Ensure filteredreports has data
   if (this.filteredreports.length === 0) {
-    console.log('No data to export.');
-    return;
+      return;
   }
 
   // Construct HTML content for PDF
@@ -297,12 +309,24 @@ exportToPDF() {
           font-size: 20px;
           font-weight: bold;
           margin-bottom: 10px;
+               margin-top: 10px;
         }
-         .container {
+        .container {
           margin-left: 300px;
         }
-             .container2 {
+        .container2 {
           margin-left: 320px;
+        }
+        .header {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          margin-bottom: 10px;
+        }
+        .header img {
+          width: 50px;
+          height: auto;
+          margin-right: 10px;
         }
         table {
           width: 100%;
@@ -317,14 +341,16 @@ exportToPDF() {
         th {
           background-color: #f2f2f2;
         }
-     
       </style>
     </head>
     <body>
-     <div class="title container">LION INTERNATIONAL BANK S.C </div>
-      <div class="title container2 ">Transaction Report</div>
+      <div class="header">
+        <img src="/assets/img/logolib.png"alt="LION INTERNATIONAL BANK S.C Logo">
+        <div class="title">LION INTERNATIONAL BANK S.C</div>
+      </div>
+      <div class="title container2">Transaction Report</div>
       <div>Account Name: Fana Youth Saving And Credit Limited Cooperative</div>
-      <div>Accont Number:00310095104-87</div>
+      <div>Account Number: 00310095104-87</div>
       <div>BRANCH: MEKELE MARKET</div>
       <div>Date covered: From ${this.startDate} To: ${this.endDate}</div>
       <table>

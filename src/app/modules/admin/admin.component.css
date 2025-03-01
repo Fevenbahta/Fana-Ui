@@ -11,11 +11,13 @@ font-size: 10px;
   .insufficient-balance{
     color:red;
   }
-  
+  .TITLE{
+    background-color:  rgb(0, 110, 156);
+    color: white;
+  }
   .btndelete{
-    background-color: #bed5da;
-    background:linear-gradient(to left, #d6dbdb , #bed5da ) ;
-    color:black;
+    background-color:  rgb(0, 110, 156);
+    color:rgb(252, 248, 248);
  /* Adjust the value to control the roundness */
     padding: 7px 12px; /* Add padding for better appearance */
     font-size: 12px;
@@ -25,7 +27,7 @@ font-size: 10px;
     transition: background-color 0.3s;
   }
  .car{
-    color:#09b9dd;
+    color: rgb(0, 110, 156);
  } 
   
   .compact-table th {
@@ -70,9 +72,9 @@ font-size: 10px;
       border: none;
       border-bottom: 1px solid #ccc;
       outline: none;
-      font-size: 16px;
-      padding: 5px 0;
-      width: 100%;
+      font-size: 12px;
+      padding: 3px 0;
+      width: 80%;
     }
     
     .form-field mat-select {

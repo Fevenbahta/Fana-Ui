@@ -3,6 +3,8 @@ import { Component, Inject, Renderer2 } from '@angular/core';
 import { Login } from 'app/models/data.model';
 import { LoginService } from 'app/service/login.service';
 import { MatSnackBar } from '@angular/material/snack-bar'
+import { FormControl } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-admin',
   templateUrl: './admin.component.html',
@@ -25,6 +27,23 @@ export class AdminComponent {
   selectedUserUnlocked:number;
   lockedUsers:Login[]=[]
   userUnlocked:boolean=false;
+
+  searchControlS: FormControl = new FormControl();
+  searchControl: FormControl = new FormControl();
+  searchControlUS: FormControl = new FormControl();
+  searchControlL: FormControl = new FormControl();
+
+
+  filteredUsers: Login[] = [];
+  filteredUnsuspendedUsers: Login[] = [];
+  filteredSuspendedUsers: Login[] = [];
+  filteredLockedUsers: Login[] = [];
+
+  // Search terms
+  searchTermReset: string = '';
+  searchTermDelete: string = '';
+  searchTermUnsuspend: string = '';
+  searchTermUnlock: string = '';
 
   lockUserData:Login = { 
     id: 0,
@@ -73,9 +92,9 @@ export class AdminComponent {
         fullName:"" ,
         branchCode:"" , };
 
-  constructor(private userService: LoginService,
-    private snackBar: MatSnackBar,
-    private renderer: Renderer2,
+  constructor(private userService: LoginService, 
+     private toastr: ToastrService,
+
     @Inject(DOCUMENT) private document: Document
   ) {
 
@@ -89,18 +108,100 @@ export class AdminComponent {
    this.suspendedUsers=t.filter(t=>t.status=='Suspended');
    this.lockedUsers=t.filter(t=>t.status=='Locked');
    this.unsuspendedUsers=t.filter(t=>t.status!='Suspended');
-    console.log("con",this.users)
-    
+
+    this.filteredUsers = this.users;
+  this.filteredUnsuspendedUsers = this.unsuspendedUsers;
+  this.filteredSuspendedUsers = this.suspendedUsers;
+  this.filteredLockedUsers = this.lockedUsers;
   });
     
+  
 
-} 
- 
+  this.searchControl.valueChanges.subscribe((searchTerm: string) => {
+    this.filterUsers(searchTerm);
+  });
+  
+  this.searchControlL.valueChanges.subscribe((searchTerm: string) => {
+    this.filterUsersL(searchTerm);
+  });
+  
+  this.searchControlUS.valueChanges.subscribe((searchTerm: string) => {
+    this.filterUsersUS(searchTerm);
+  });
+  
+  this.searchControlS.valueChanges.subscribe((searchTerm: string) => {
+    this.filterUsersS(searchTerm);
+  });
+  } clearSearchL() {
+    this.searchControlL.setValue('');
+  }
+  clearSearchS() {
+    this.searchControlS.setValue('');
+  }
+  clearSearchUS() {
+    this.searchControlUS.setValue('');
+  }
+
+  clearSearch() {
+    this.searchControl.setValue('');
+  }
+
+
+  filterUsersUS(searchTerm: string) {
+    if (!searchTerm) {
+      this.filteredUnsuspendedUsers = this.unsuspendedUsers;
+      return;
+    }
+
+    searchTerm = searchTerm.toLowerCase();
+    this.filteredUnsuspendedUsers = this.unsuspendedUsers.filter(br =>
+      br.userName.toLowerCase().includes(searchTerm)
+    );
+    
+  }
+  isString(value: any): boolean {
+    return typeof value === 'string';
+  }
+  filterUsers(searchTerm: string) {
+  if (!searchTerm) {
+    this.filteredUsers = this.users;
+    return;
+  }
+
+  searchTerm = searchTerm.toLowerCase();
+  this.filteredUsers = this.users.filter(br =>
+    br.userName.toLowerCase().includes(searchTerm)
+  );
+  
+}
+filterUsersS(searchTerm: string) {
+  if (!searchTerm) {
+    this.filteredSuspendedUsers = this.suspendedUsers;
+    return;
+  }
+
+  searchTerm = searchTerm.toLowerCase();
+  this.filteredSuspendedUsers = this.suspendedUsers.filter(br =>
+    br.userName.toLowerCase().includes(searchTerm)
+  );
+  
+}filterUsersL(searchTerm: string) {
+  if (!searchTerm) {
+    this.filteredLockedUsers = this.lockedUsers;
+    return;
+  }
+
+  searchTerm = searchTerm.toLowerCase();
+  this.filteredLockedUsers = this.lockedUsers.filter(br =>
+    br.userName.toLowerCase().includes(searchTerm)
+  );
+  
+}
   resetPassword() {
     this.resetUserData.password="123456"
     this.userService.updateAdminUser( this.resetUserData,this.resetUserData.id).subscribe(
       response => {
-        console.log('Password reset successful:', response);
+ 
  this.showSuccessMessage('Successfull!');
       
       this.userService.getAll().subscribe((t) => {
@@ -108,7 +209,7 @@ export class AdminComponent {
         this.suspendedUsers=t.filter(t=>t.status=='Suspended');
         this.lockedUsers=t.filter(t=>t.status=='Locked');
         this.unsuspendedUsers=t.filter(t=>t.status!='Suspended');
-        console.log("con",this.users)
+
         this.resetUserData= { 
           id: 0,
           userName: "",
@@ -149,8 +250,8 @@ export class AdminComponent {
       },
       error => {
         console.error('Failed to reset password:', error);
-        // Handle error and display error message
-      }
+        
+ this.showSuccessMessage('Faild!',true);    }
     );
   }
 
@@ -159,7 +260,7 @@ export class AdminComponent {
     this.userService.updateAdminUser(this.deleteUserData,this.deleteUserData.id).subscribe(
       response => {
         this.showSuccessMessage('Successfull!');
-        console.log('User removed successfully:', response);
+
         
        this.userService.getAll().subscribe((t) => {
         this.users = t
@@ -206,36 +307,34 @@ export class AdminComponent {
       },
       error => {
         console.error('Failed to remove user:', error);
-        // Handle error and display error message
-      }
+        this.showSuccessMessage('Faild!',true);      }
     );
   }
-  private showSuccessMessage(message: string, isError: boolean = false): void {
-    const panelClass = isError ? 'error-snackbar' : 'success-snackbar';
-    const snackBarRef = this.snackBar.open(message, 'Close', {
-      duration: 3000,
-      horizontalPosition: 'end',
-      verticalPosition: 'top'
-    });
+  showSuccessMessage(message: string, isError: boolean = false): void {
+    console.log("Toastr called:", message); // Debugging line
+ 
+    if (isError) {
 
-    snackBarRef.afterOpened().subscribe(() => {
-      const snackBarElement = this.document.querySelector('.mat-snack-bar-container');
-      if (snackBarElement) {
-            this.renderer.setStyle(snackBarElement, 'background-color', isError ? 'red' : 'green');
-        this.renderer.setStyle(snackBarElement, 'color', 'white');
-    
-          } else {
-        console.error('Snackbar element not found');
-      }
-    });
-  }
+      this.toastr.error(message, 'Error', {
+        timeOut: 1000,
+        positionClass: 'toast-top-right',
+        closeButton: true
+      });
+    } else {
   
+      this.toastr.success(message, 'Success', {
+        timeOut: 1000,
+        positionClass: 'toast-top-right',
+        closeButton: true
+      });
+    }
+  }
 unsuspendUser() {
     this.unsuspendUserData.status='';
     this.userService.updateAdminUser(this.unsuspendUserData,this.unsuspendUserData.id).subscribe(
       response => {
         this.showSuccessMessage('Successfull!');
-        console.log('User removed successfully:', response);
+  
         
        this.userService.getAll().subscribe((t) => {
         this.users = t
@@ -282,8 +381,7 @@ unsuspendUser() {
       },
       error => {
         console.error('Failed to remove user:', error);
-        // Handle error and display error message
-      }
+        this.showSuccessMessage('Faild!',true);    }
     );
   }
   unlockUser() {
@@ -291,7 +389,7 @@ unsuspendUser() {
     this.userService.updateAdminUser(this.lockUserData,this.lockUserData.id).subscribe(
       response => {
         this.showSuccessMessage('Successfull!');
-        console.log('User removed successfully:', response);
+
         
        this.userService.getAll().subscribe((t) => {
         this.users = t
@@ -338,22 +436,21 @@ unsuspendUser() {
       },
       error => {
         console.error('Failed to remove user:', error);
-        // Handle error and display error message
-      }
+        this.showSuccessMessage('Faild!',true);     }
     );
   }
   onUserselected(){
     this.userService.getUser(this.selectedUserDelete).subscribe((t) => {
       this.singleUser = t;
       this.deleteUserData=t
-    console.log("edit",t)
+
     });
   }
   onUserselectedReset(){
     this.userService.getUser(this.selectedUserReset).subscribe((t) => {
       this.singleUser = t;
       this.resetUserData=t;
-      console.log("this.resetUserData",this.resetUserData)
+
     
     });
   }
@@ -371,4 +468,6 @@ unsuspendUser() {
     
     });
   }
+
+
 }

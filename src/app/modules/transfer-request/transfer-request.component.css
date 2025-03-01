@@ -3,45 +3,64 @@ body, input, button, select, textarea {
   font-family: 'Times New Roman', Times, serif;
 }
 /* Add styles for the loading spinner container */
-.loading-spinner-container {
-    position: fixed;
-    top: 40%;
-    left: 40%;
-    transform: translate(-50%, -50%);
-    z-index: 1100;
-  
-  }
-  .loading-overlay {
-    position: fixed;
-    top: 100px;
-    left: 0;
-    width: 100%;
-    height: 1%;
-    background-color: rgba(255, 255, 255, 0);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-    margin-top: 10%;
-  }
+.loading-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-size: 20px;
+  font-family: Arial, sans-serif;
+  z-index: 9999;
+}
+
+.spinner {
+  border: 4px solid #f3f3f3; 
+  border-top: 4px solid #3498db;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.loading-text .dot {
+  animation: dotAnimation 1.5s steps(5, end) infinite;
+}
+
+@keyframes dotAnimation {
+  0% { content: ""; }
+  20% { content: "."; }
+  40% { content: ".."; }
+  60% { content: "..."; }
+  80% { content: ".."; }
+  100% { content: "."; }
+}
+
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
   .color{
     color:white;
   }
   .btnsp{
       color:#09b9dd
   }
-  .cardhead{
-    background-color:rgb(217, 222, 224);
-    color: black;
-
-  }
-  .carhead{
-    background-color:#f89914;
-    color:black;
-  }
+ 
   .fixed-header {
     position:fixed;
-    top: 90px;
+    top: 55px;
     width: 100%;
     z-index: 100; /* Adjust z-index as needed */
   }
@@ -161,7 +180,7 @@ body, input, button, select, textarea {
     color: #ffffff;
   }
   
-  button[type="submit"]:focus,
+  button[type="mmit"]:focus,
   input[type="search"]:focus {
   box-shadow: 0 0 2px 0 #fcc034;
   border-color:#fcc034;
@@ -187,9 +206,14 @@ body, input, button, select, textarea {
     transition: background-color 0.3s;
   }
   .btnsave{
-    background-color: #09b9dd;
+    background-color: #0d6486;
     color:white;
     
+  }
+  .cardhead {
+    background-color: rgb(217, 222, 224);
+    color: black;
+    font-family: 'Times New Roman', Times, serif;
   }
   .table-container {
     width: 100%; /* Set the width of the container */
@@ -263,4 +287,9 @@ mat-error {
 
 * {
   font-family: 'Times New Roman', Times, serif;
+}
+
+.carhead{
+  background-color: #0f6283;
+  color: white;
 }

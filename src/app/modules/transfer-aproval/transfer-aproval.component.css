@@ -3,14 +3,53 @@ body, input, button, select, textarea {
   font-family: 'Times New Roman', Times, serif;
 }
 
-/* Styles for loading spinner container */
-.loading-spinner-container {
+.loading-overlay {
   position: fixed;
-  top: 10%;
-  left: 40%;
-  transform: translate(-50%, -50%);
-  color: #018ca8;
-  font-family: 'Times New Roman', Times, serif;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-size: 20px;
+  font-family: Arial, sans-serif;
+  z-index: 9999;
+}
+
+.spinner {
+  border: 4px solid #f3f3f3; 
+  border-top: 4px solid #3498db;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.loading-text .dot {
+  animation: dotAnimation 1.5s steps(5, end) infinite;
+}
+
+@keyframes dotAnimation {
+  0% { content: ""; }
+  20% { content: "."; }
+  40% { content: ".."; }
+  60% { content: "..."; }
+  80% { content: ".."; }
+  100% { content: "."; }
+}
+
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }
 
 /* Responsive styles for tables and cards */
@@ -34,26 +73,13 @@ body, input, button, select, textarea {
   }
 }
 
-/* Styles for loading overlay */
-.loading-overlay {
-  position: relative;
-  top: 0;
-  bottom: 10;
-  left: 10%;
-  width: 10%;
-  height: 0; /* Decreased height */
-  background-color: rgba(255, 255, 255, 0.8);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 9999;
-  font-family: 'Times New Roman', Times, serif;
-}
+
 
 /* Button styles */
 .btngray {
-  background: #ed910f;
-  color: white;
+  background:white; 
+  color:#80353c ;
+  border-color:#80353c ;
   font-family: 'Times New Roman', Times, serif;
 }
 .color {
@@ -61,8 +87,9 @@ body, input, button, select, textarea {
   font-family: 'Times New Roman', Times, serif;
 }
 .btnsp {
-  color: #09b9dd;
+  color: #335c73;
   font-family: 'Times New Roman', Times, serif;
+  border-color: #335c73;
 }
 .cardhead {
   background-color: rgb(217, 222, 224);
@@ -101,13 +128,11 @@ body, input, button, select, textarea {
 
 /* Fixed header */
 .fixed-header {
-  position: fixed;
-  top: 90px;
+  position:fixed;
+  top: 55px;
   width: 100%;
-  z-index: 1000;
-  font-family: 'Times New Roman', Times, serif;
+  z-index: 100; /* Adjust z-index as needed */
 }
-
 /* Red button */
 .btnred {
   background-color: rgb(245, 22, 22);
@@ -117,7 +142,7 @@ body, input, button, select, textarea {
 
 /* Light blue button */
 .btnex {
-  color: #09b9dd;
+  color: #335c73;
   background-color: #f8fafa;
   font-family: 'Times New Roman', Times, serif;
 }
@@ -218,21 +243,6 @@ td, th {
   font-family: 'Times New Roman', Times, serif;
 }
 
-/* Loading overlay styles */
-.loading-overlay {
-  position: fixed;
-  top: 50%;
-  left: 0;
-  width: 100%;
-  height: 0%;
-  background-color: rgba(255, 255, 255, 0.8);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 9999;
-  font-family: 'Times New Roman', Times, serif;
-}
-
 /* Small width class */
 .small {
   width: 5%;
@@ -267,8 +277,8 @@ input[type="search"]::placeholder {
 /* Focus styles */
 button[type="submit"]:focus,
 input[type="search"]:focus {
-  box-shadow: 0 0 2px 0 #fcc034;
-  border-color: #fcc034;
+  box-shadow: 0 0 2px 0 #80353c;
+  border-color: #80353c;
   outline: none;
   font-family: 'Times New Roman', Times, serif;
 }
@@ -276,7 +286,7 @@ input[type="search"]:focus {
 /* Search input style */
 .search {
   box-shadow: 0 0 1px 0 #bbb;
-  border-color: #ed910f;
+  border-color: #80353c;
   outline: none;
   font-family: 'Times New Roman', Times, serif;
 }
@@ -296,7 +306,20 @@ input[type="search"]:focus {
 
 /* Save button style */
 .btnsave {
-  background-color: #f89914;
+  background-color: #80353c;
   color: black;
   font-family: 'Times New Roman', Times, serif;
+}
+.material-icons{
+  color:white;
+}
+.material-icons1{
+  color:white;
+  background-color: #335c73;
+  
+}
+.material-icons2{
+  color: white;
+  background-color: #80353c;
+ 
 }

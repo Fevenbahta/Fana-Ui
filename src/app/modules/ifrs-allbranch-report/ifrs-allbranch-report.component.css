@@ -1,0 +1,631 @@
+/* General styles */
+body {
+  font-family: 'Times New Roman', Times, serif;
+background-color: #f9f9f9;
+font-weight: 800; /* Adjust the font size as needed */
+
+  color: black;
+  margin: 0;
+  padding: 0;
+}
+
+.card-header h6 {
+  font-size: 12px;
+  color: #0c0c0c;
+  margin-bottom: 10px;
+}
+
+
+.loading-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-size: 20px;
+  font-family: Arial, sans-serif;
+  z-index: 9999;
+}
+
+.spinner {
+  border: 4px solid #f3f3f3; 
+  border-top: 4px solid #3498db;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.loading-text .dot {
+  animation: dotAnimation 1.5s steps(5, end) infinite;
+}
+
+@keyframes dotAnimation {
+  0% { content: ""; }
+  20% { content: "."; }
+  40% { content: ".."; }
+  60% { content: "..."; }
+  80% { content: ".."; }
+  100% { content: "."; }
+}
+
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+
+
+
+
+input[type="text"]:focus, input[type="date"]:focus, select:focus {
+  border-color: #52829e;
+}
+
+
+
+.uppercase-text {
+  text-transform: uppercase;
+}
+
+.align-items-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 1px;
+}
+
+.btnor { 
+  background: linear-gradient(to right, rgb(0, 110, 156), rgb(0, 66, 93));
+
+    border: 2px solid rgb(0, 110, 156); /* Brighter border */
+
+  color: white;
+  padding: 2px 4px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 0.8rem;
+  margin-left: 40%;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.btnor:hover {
+  background-color: rgb(0, 110, 156); /* Even brighter color on hover */
+  color: white;
+  box-shadow: 0px 5px 9px rgba(26, 25, 25, 0.3);
+}
+
+
+.btndelete {
+  background-color: #335c73;
+  border: none;
+  color: white;
+  padding: 10px;
+  margin-right: 10px;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+}
+
+.btndelete:hover {
+  background-color: #1b8daa;
+}
+
+/* Icons */
+.material-icons.icon-red {
+  color: #80353c;
+}
+
+.material-icons.icon-green {
+  color: #335c73;
+}
+
+.material-icons.icon-blue {
+  color: #335c73;
+}
+
+/* Date input */
+.date-input {
+  padding: 8px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  margin-left: 10px;
+}
+
+.date-input:focus {
+  border-color: #335c73;
+}
+
+/* Responsive Table */
+@media (max-width: 768px) {
+  .compact-table {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+
+  
+}
+
+/* Empty results message */
+p {
+  font-size: 0.8 rem;
+  color: #777;
+  text-align: center;
+  margin-top: 20px;
+}
+
+.compact-table th {
+  font-size: 11px;
+  color: black;
+  font-weight: 650; /* Adjust the font size as needed */
+  font-family: 'Times New Roman', Times, serif;
+}
+
+.compact-table tr {
+  font-size: 11px; /* Adjust the font size as needed */
+  font-family: 'Times New Roman', Times, serif;
+}
+
+.compact-table th,
+.compact-table td {
+  padding: 4px 8px;
+  font-family: 'Times New Roman', Times, serif;
+}
+
+td,
+th {
+  white-space: nowrap; /* Prevent text wrapping */
+  font-family: 'Times New Roman', Times, serif;
+}
+
+.color {
+  color: white;
+  font-family: 'Times New Roman', Times, serif;
+}
+
+.btnsp {
+  color: #335c73;
+  font-family: 'Times New Roman', Times, serif;
+}
+
+.cardhead {
+  background-color: rgb(217, 222, 224);
+  color: black;
+  font-family: 'Times New Roman', Times, serif;
+}
+
+.carhead {
+  background-color: #80353c;
+  color: black;
+  font-family: 'Times New Roman', Times, serif;
+}
+
+.fixed-header {
+  position:fixed;
+  top: 55px;
+  width: 100%;
+  z-index: 100; /* Adjust z-index as needed */
+}
+.btnex {
+  color: #335c73;
+  background-color: #f8fafa;
+  font-family: 'Times New Roman', Times, serif;
+}
+
+.btndel {
+  color: black;
+  background-color: #f8fafa;
+  font-family: 'Times New Roman', Times, serif;
+}
+
+/* Style for the input fields */
+input[type="text"] {
+  padding: 8px;
+  margin-right: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  font-family: 'Times New Roman', Times, serif;
+}
+
+/* Style for the search button */
+button {
+  padding: 8px 11px;
+  background-color: #ffffff;
+  color: rgb(10, 10, 10);
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-family: 'Times New Roman', Times, serif;
+}
+
+button:hover {
+  background-color: #bed5da;
+}
+
+.form-field input:disabled {
+  background-color: #faffff;
+  color: #0d0d0d;
+  font-family: 'Times New Roman', Times, serif;
+}
+
+form-field {
+  position: relative;
+  margin-bottom: 20px;
+  font-family: 'Times New Roman', Times, serif;
+}
+
+.form-field input.wider-input {
+  width: 100%; /* Make this input wider */
+  font-family: 'Times New Roman', Times, serif;
+}
+
+.form-field input {
+  border: none;
+  border-bottom: 1px solid #ccc;
+  border-top: 1px solid #ccc;
+  border-right: 1px solid #ccc;
+  border-left: 1px solid #ccc;
+  outline: none;
+  width: 70%;
+  padding: 5px;
+  font-size: 11px;
+  font-family: 'Times New Roman', Times, serif;
+}
+
+.form-field label {
+  position: absolute;
+  top: -20px;
+  left: 5px;
+  font-size: 11px;
+  color: black;
+  pointer-events: none;
+  transition: 0.2s ease all;
+  font-family: 'Times New Roman', Times, serif;
+}
+
+.white {
+  color: #335c73;
+  font-family: 'Times New Roman', Times, serif;
+}
+
+.form-field input:focus ~ label,
+.form-field input:not(:placeholder-shown) ~ label {
+  top: -20px;
+  left: 5px;
+  font-size: 14px;
+  color: rgb(11, 11, 11);
+  background-color: #fff;
+  padding: 0 5px;
+  font-family: 'Times New Roman', Times, serif;
+}
+
+.compact-table th {
+  font-size: 11px;
+  color: black;
+  font-weight: 650; /* Adjust the font size as needed */
+  font-family: 'Times New Roman', Times, serif;
+}
+
+.compact-table tr {
+  font-size: 11px; /* Adjust the font size as needed */
+  font-family: 'Times New Roman', Times, serif;
+}
+
+.compact-table th,
+.compact-table td {
+  padding: 2px 4px;
+  font-family: 'Times New Roman', Times, serif;
+}
+
+td,
+th {
+  white-space: nowrap; /* Prevent text wrapping */
+  font-family: 'Times New Roman', Times, serif;
+}
+
+.small {
+  width: 5%;
+  font-family: 'Times New Roman', Times, serif;
+}
+
+.btndanger {
+  color: rgb(248, 245, 245);
+  font-family: 'Times New Roman', Times, serif;
+}
+
+.inputserach {
+  width: 300px;
+  background: transparent;
+  margin: 0;
+  padding: 7px 8px;
+  font-size: 11px;
+  color: inherit;
+  border: 1px solid transparent;
+  border-radius: 50px;
+  background: transparent url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' class='bi bi-search' viewBox='0 0 16 16'%3E%3Cpath d='M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM11 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z'%3E%3C/path%3E%3C/svg%3E") no-repeat right;
+  font-family: 'Times New Roman', Times, serif;
+}
+
+input[type="search"]::placeholder {
+  color: #ffffff;
+  font-family: 'Times New Roman', Times, serif;
+}
+
+button[type="submit"]:focus,
+input[type="search"]:focus {
+  box-shadow: 0 0 2px 0 #80353c;
+  border-color: #80353c;
+  outline: none;
+  font-family: 'Times New Roman', Times, serif;
+}
+
+.search {
+  box-shadow: 0 0 1px 0 #bbb;
+  border-color: #80353c;
+  outline: none;
+  font-family: 'Times New Roman', Times, serif;
+}
+
+.btndelete {
+  background-color: hsl(191, 27%, 80%);
+  color: black;
+  border-radius: 20px; /* Adjust the value to control the roundness */
+  padding: 7px 11px; /* Add padding for better appearance */
+  font-size: 11px;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif; /* Adjust the font size */
+  /* Text color */
+  /* Remove border */
+  cursor: pointer; /* Add cursor pointer on hover */
+  transition: background-color 0.3s;
+}
+
+.btnsave {
+  background-color: #335c73;
+  color: white;
+  font-family: 'Times New Roman', Times, serif;
+}
+
+.table-container {
+  width: 100%; /* Set the width of the container */
+  overflow-x: auto; /* Enable horizontal scrolling */
+  -webkit-overflow-scrolling: touch; /* Enable smooth scrolling on iOS devices */
+  font-family: 'Times New Roman', Times, serif;
+}
+
+.table-striped tbody tr:nth-child(odd) td {
+  background-color: #f2f2f2; /* Optional: Alternating row background color */
+  font-family: 'Times New Roman', Times, serif;
+}
+
+.table-striped tbody tr td {
+  border-right: 1px solid #ddd; /* Add right border between columns */
+  font-family: 'Times New Roman', Times, serif;
+}
+
+.table-striped thead th {
+  border-bottom: 2px solid #ddd; /* Add bottom border to table header */
+  font-family: 'Times New Roman', Times, serif;
+}
+
+.table-container {
+  overflow-x: auto;
+  max-height: 400px; /* Adjust as needed */
+  font-family: 'Times New Roman', Times, serif;
+}
+
+.table-container::-webkit-scrollbar {
+  width: 10px;
+}
+
+.table-container::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+.table-container::-webkit-scrollbar-thumb {
+  background: #888;
+}
+
+.table-container::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+.btngray {
+  background: #80353c;
+  color: white;
+  font-family: 'Times New Roman', Times, serif;
+}
+
+/* Style for Payment Method Dropdown */
+.payment-method-select {
+  width: 10%; /* Set the width to 100% of its container */
+  padding: 10px; /* Add padding */
+  font-size: 11px; /* Set font size */
+  border: 1px solid #ced4da; /* Add border */
+  border-radius: 4px; /* Add border radius */
+  font-family: 'Times New Roman', Times, serif;
+}
+
+/* Style for Payment Method Label */
+.payment-method-label {
+  margin-bottom: 5px; /* Add margin bottom */
+  font-weight: bold; /* Set font weight to bold */
+  font-family: 'Times New Roman', Times, serif;
+}
+
+.center {
+  margin-left: 350px;
+  font-family: 'Times New Roman', Times, serif;
+}
+
+.center2 {
+  margin-left: 380px;
+  font-family: 'Times New Roman', Times, serif;
+}
+
+/* Style for Payment Method Option */
+.payment-method-option {
+  font-size: 11px; /* Set font size */
+  font-family: 'Times New Roman', Times, serif;
+}
+
+/* Style for Payment Method Option Placeholder */
+.payment-method-placeholder {
+  color: #6c757d; /* Set placeholder color */
+  font-family: 'Times New Roman', Times, serif;
+}
+
+mat-error {
+  display: block;
+  font-family: 'Times New Roman', Times, serif;
+}
+h6{
+  font-family: 'Times New Roman', Times, serif;
+  font-weight: bold;
+}
+.uppercase-text {
+  text-transform: uppercase;
+}
+.material-icons{
+  color:white;
+}
+.material-icons1{
+  color:white;
+  background-color: #335c73;
+  
+}
+.material-icons2{
+  color: white;
+  background-color: #80353c;
+ 
+}
+body {
+  font-family: 'Times New Roman', Times, serif;
+  margin: 20px;
+}
+
+.receipt {
+  width: 100%; /* Set the width of the receipt */
+}
+
+.receipt-header {
+  text-align: center; /* Center the header elements */
+  border-bottom: 2px solid #333;
+  padding-bottom: 10px;
+  margin-bottom: 20px;
+  background-color: #e9ecef;
+}
+
+.logo-img {
+  width: 15%;
+  height: auto;
+}
+
+.slip-title {
+  font-weight: bold;
+  font-size: 18px;
+  margin: 5px 0; /* Add margin for spacing */
+}
+
+h3 {
+  color: #018ca8; /* Change color for headings */
+  margin-top: 20px;
+}
+
+.footer {
+  margin-top: 30px;
+  text-align: center;
+}
+
+.qr-code {
+  width: 10%;
+  height: auto;
+}
+
+/* New styles for tables */
+.transaction-info,
+.transaction-details,
+.amount-in-words,
+.payment-method {
+  margin: 20px 0; /* Space between sections */
+}
+
+.transaction-info table,
+.transaction-details table,
+.amount-in-words table,
+.payment-method table {
+  width: 100%; /* Make tables full width */
+  border-collapse: collapse; /* Remove space between borders */
+}
+
+.transaction-info th,
+.transaction-details th,
+.amount-in-words th,
+.payment-method th,
+.transaction-info td,
+.transaction-details td,
+.amount-in-words td,
+.payment-method td {
+  border: 1px solid #333; /* Border for cells */
+  padding: 8px; /* Padding for cells */
+  text-align: left; /* Align text to the left */
+}
+
+.transaction-info th,
+.transaction-details th,
+.amount-in-words th,
+.payment-method th {
+  background-color: #f2f2f2; /* Background color for header cells */
+}
+
+
+.status-dropdown label {
+  font-weight: bold;                 /* Make the label bold */
+  margin-right: 8px;                 /* Space between label and dropdown */
+}
+
+.status-dropdown select {
+  padding: 5px 10px;                 /* Padding inside the select dropdown */
+  border: 1px solid #ccc;            /* Light gray border */
+  border-radius: 4px;                /* Rounded corners */
+  font-size: 11px;                   /* Font size for the dropdown */
+  cursor: pointer;                   /* Cursor changes to pointer on hover */
+  transition: border-color 0.3s;     /* Smooth transition for border color */
+}
+
+.status-dropdown select:hover {
+  border-color: #1b8daa;             /* Change border color on hover */
+}
+
+.status-dropdown select:focus {
+  outline: none;                     /* Remove default outline */
+  border-color: #1b8daa;             /* Change border color on focus */
+  box-shadow: 0 0 5px rgba(31, 159, 209, 0.5); /* Add a subtle shadow on focus */
+}
+
+.total-count {
+  margin-bottom: 10px;
+  font-size: 11px;
+  font-weight: bold;
+  text-align: left;
+}
+
+.total-count P{
+
+  text-align: left;
+}

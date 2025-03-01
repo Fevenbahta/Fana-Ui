@@ -18,11 +18,21 @@ import { FanaReportComponent } from './modules/fana-report/fana-report.component
 import { SlipComponent } from './modules/slip/slip.component';
 import { BranchreportComponent } from './modules/branchreport/branchreport.component';
 import { GeneralReportComponent } from './modules/general-report/general-report.component';
+import { IFRSAllbranchReportComponent } from './modules/ifrs-allbranch-report/ifrs-allbranch-report.component';
+import { FanaCustomViewComponent } from './modules/fana-custom-view/fana-custom-view.component';
+import { FanaAccountStatementComponent } from './modules/fana-account-statement/fana-account-statement.component';
+import {  NgxUiLoaderModule, NgxUiLoaderRouterModule, SPINNER} from 'ngx-ui-loader';
+import {ngxUiLoaderConfig} from './shared/NgxUiLoaderConfig'
+
 
 
 @NgModule({
   declarations: [
     AppComponent,
+
+  
+
+
 
 
 
@@ -33,8 +43,14 @@ import { GeneralReportComponent } from './modules/general-report/general-report.
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-       DefaultModule,
-       HttpClientModule,
+    DefaultModule,
+    HttpClientModule,
+    
+    NgxUiLoaderModule.forRoot({
+      bgsType: SPINNER.threeStrings,
+    }),
+    NgxUiLoaderRouterModule,
+   
   ],
   providers: [],
   bootstrap: [AppComponent]

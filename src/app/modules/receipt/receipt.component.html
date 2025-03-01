@@ -1,0 +1,83 @@
+
+
+<app-nav class="fixed-header sharednav" [buttons]="buttons"></app-nav>
+    <div class="row  ">
+      
+    
+              <div class="col-md-12 ml-3">
+                <div class=" mt-5 mb-5">
+
+                  <div class="card">
+                       <div class="form-field mt-5">  <label for="service">Choose a service:</label>
+                            <select [(ngModel)]="selectedService">
+                              <option *ngFor="let service of services" [value]="service">{{ service }}</option>
+                            </select></div>
+                            <div class="form-field">  <label for="inputId">Enter ID:</label>
+                            <input type="text" [(ngModel)]="inputId" />
+                          </div>
+                          
+                          
+                            <button (click)="generateReceipt()">Generate Receipt</button>
+                          </div>
+                          
+                          <!-- Receipt Content -->
+                          <div id="receiptContent" style="display: none;">
+                            <div class="receipt-header">
+                                <div class="column left-column">
+                                  <h2>Anbesa Bank</h2>
+                                  <p>Country: Ethiopia</p>
+                                  <p>City: Addis Ababa</p>
+                                  <p>Email: info@anbesabank.com</p>
+                                  <p>Tel: (+251) 11 662 60 00/60</p>
+                                  <p>Fax: (+251) 11 662 59 99</p>
+                                </div>
+                                <div class="column right-column">
+                                  <p>Address: Lex Plaza Building, Addis Ababa, Ethiopia</p>
+                                  <p>Postal Code: 27026/1000</p>
+                                  <p>VAT Reg. No.: &nbsp;&nbsp;&nbsp; TIN No.: &nbsp;&nbsp;&nbsp;</p>
+                                  <p>SWIFT Code: LIBSETAA</p>
+                                </div>
+                              </div>
+                            
+                            <h3>Transaction Information</h3>
+                            <table>
+                              <tr>
+                                <td><strong>Payer:</strong></td>
+                                <td>{{ transaction?.account_No }}</td>
+                              </tr>
+                              <tr>
+                                <td><strong>Receiver:</strong></td>
+                                <td>{{ transaction?.account_No }}</td>
+                              </tr>
+                              <tr>
+                                <td><strong>Payment Date:</strong></td>
+                                <td>{{ transaction?.transaction_Date  }}</td>
+                              </tr>
+                              <tr>
+                                <td><strong>Reference No:</strong></td>
+                                <td>{{ transaction?.id }}</td>
+                              </tr>
+                              <tr>
+                                <td><strong>Reason:</strong></td>
+                                <td>Payment for {{ selectedService }}</td>
+                              </tr>
+                              <tr>
+                                <td><strong>Transferred Amount:</strong></td>
+                                <td>{{ transaction?.amount1 }}</td>
+                              </tr>
+                              <tr>
+                                <td><strong>Service Fee:</strong></td>
+                                <td>3.00</td>
+                              </tr>
+                              <tr>
+                                <td><strong>15% VAT:</strong></td>
+                                <td>3.00</td>
+                              </tr>
+                              <tr>
+                                <td><strong>Total Paid Amount:</strong></td>
+                                <td>{{ transaction?.amount1 }}</td>
+                              </tr>
+                            </table>
+                          </div>
+                          
+                  </div></div>
