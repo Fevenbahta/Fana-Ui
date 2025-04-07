@@ -93,4 +93,7 @@ getStatementsByDateRange(startDate: string, endDate: string): Observable<any> {
   const params = { startDate, endDate };
   return this.http.get(`${this.apiUrlService.apiUrl}Transaction/statements/date-range`, { params });
 }
+getTransactionsByDateRange(startDate: string, endDate: string): Observable<any[]> {
+  return this.http.get<any[]>(`${this.apiUrlService.apiUrl}core-transactions/by-date-range?startDate=${startDate}&endDate=${endDate}`);
+}
 }

@@ -22,13 +22,15 @@ import { IFRSAllbranchReportComponent } from './modules/ifrs-allbranch-report/if
 import { FanaCustomViewComponent } from './modules/fana-custom-view/fana-custom-view.component';
 import { FanaAccountStatementComponent } from './modules/fana-account-statement/fana-account-statement.component';
 import {  NgxUiLoaderModule, NgxUiLoaderRouterModule, SPINNER} from 'ngx-ui-loader';
-import {ngxUiLoaderConfig} from './shared/NgxUiLoaderConfig'
+import {ngxUiLoaderConfig} from './shared/NgxUiLoaderConfig';
+import { FanaCoreStatmentComponent } from './modules/fana-core-statment/fana-core-statment.component'
 
 
 
 @NgModule({
   declarations: [
     AppComponent,
+  
 
   
 

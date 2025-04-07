@@ -61,6 +61,7 @@ export class IfrsTransactionService {
 
     return this.http.post<IfrsTransfer[]>(this.apiUrlService.apiUrl + 'IfrsTransaction/GetIfrsTransactionsByDateInterval', requestBody, httpOptions);
   }
+
   getIfrsTransactionUserByAccount(accountNumber:string): Observable<ValidAccount> {
     return this.http.get<ValidAccount>(this.apiUrlService.apiUrl + 'IfrsTransaction/GetUserDetailsByAccountNumber/'+accountNumber);
  }

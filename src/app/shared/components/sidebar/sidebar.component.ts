@@ -21,7 +21,8 @@ export const ROUTES: RouteInfo[] = [
   { path: '/Change', title: 'Change', icon: 'edit', class: '' },
   { path: '/FanaCustom', title: 'Fana-Customer-Report', icon: 'description', class: '' },
   { path: '/FanaStatment', title: 'Fana-Account-Statement', icon: 'account_balance_wallet', class: '' },
-  
+  { path: '/FanaCoreStatment', title: 'Fana-Account-Statement', icon: 'account_balance_wallet', class: '' },
+
 ];
 
 @Component({
@@ -68,7 +69,7 @@ this.user= this.authService.getres().userName;
   this.menuItems = []; // Display no routes for Admin
 }
 else if ( this.role==='FanaAdmin') {  
-  this.menuItems = ROUTES.filter(menuItem => menuItem.path === '/FanaCustom'||menuItem.path === '/FanaStatment');}
+  this.menuItems = ROUTES.filter(menuItem => menuItem.path === '/FanaCustom'||menuItem.path === '/FanaCoreStatment');}
 
   
   else if ( this.role==='Finance') {  

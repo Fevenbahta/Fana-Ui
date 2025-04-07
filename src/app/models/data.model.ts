@@ -143,6 +143,21 @@ export interface FanaTransactions {
   runninG_TOTAL: number;     // decimal, nullable
 }
 
+export interface FanaCoreTransactions {
+  refNo: string; // Primary Key
+  operation: string;
+  debit_Acc_Branch: string;
+  debited_AccNo: string;
+  debited_AccName: string;
+  credited_Account: string;
+  credited_Name: string;
+  side: string;
+  amount: number;
+  user1: string;
+  date1: string;
+  time1: string;
+  runningTotal:number
+}
 
 
 export interface OutRtgs {

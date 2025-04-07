@@ -23,6 +23,7 @@ import { IFRSAllbranchReportComponent } from './modules/ifrs-allbranch-report/if
 import { FanaCustomViewComponent } from './modules/fana-custom-view/fana-custom-view.component';
 import { CustomFanaAuthGuardService } from './service/CustomFana-auth-guard.service ';
 import { FanaAccountStatementComponent } from './modules/fana-account-statement/fana-account-statement.component';
+import { FanaCoreStatmentComponent } from './modules/fana-core-statment/fana-core-statment.component';
  // Create this component for 404 page
 
 const routes: Routes = [
@@ -94,6 +95,11 @@ const routes: Routes = [
       {
         path: 'FanaStatment',
         component: FanaAccountStatementComponent,
+        canActivate: [CustomFanaAuthGuardService],
+      },
+      {
+        path: 'FanaCoreStatment',
+        component: FanaCoreStatmentComponent,
         canActivate: [CustomFanaAuthGuardService],
       },
       {

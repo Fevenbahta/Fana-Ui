@@ -58,6 +58,7 @@ import { ReceiptComponent } from 'app/modules/receipt/receipt.component';
 import { IFRSAllbranchReportComponent } from 'app/modules/ifrs-allbranch-report/ifrs-allbranch-report.component';
 import { FanaCustomViewComponent } from 'app/modules/fana-custom-view/fana-custom-view.component';
 import { FanaAccountStatementComponent } from 'app/modules/fana-account-statement/fana-account-statement.component';
+import { FanaCoreStatmentComponent } from 'app/modules/fana-core-statment/fana-core-statment.component';
 
 @NgModule({
   declarations: [
@@ -82,7 +83,7 @@ import { FanaAccountStatementComponent } from 'app/modules/fana-account-statemen
   FanaCustomViewComponent,
   FanaAccountStatementComponent,
     IFRSAllbranchReportComponent,
-
+    FanaCoreStatmentComponent,
   ],
   imports: [
    
